@@ -159,6 +159,11 @@ export default async function VerifyByHashPage({ params }: Props) {
           >
             Intentar con otro código
           </a>
+
+          {/* FOOTER TÉCNICO */}
+          <p className="mt-6 text-center text-[10px] text-slate-600">
+            Verification Layer · 2026.02
+          </p>
         </div>
       </div>
     </main>
