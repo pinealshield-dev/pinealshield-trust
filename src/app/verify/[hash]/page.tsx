@@ -97,11 +97,11 @@ export default async function VerifyByHashPage({ params }: Props) {
 
         {/* IMAGEN */}
         {result.image_url ? (
-          <div className="mb-4 overflow-hidden rounded-xl border border-slate-800">
+          <div className="mb-4 overflow-hidden rounded-xl border border-slate-800 bg-black">
             <img
               src={result.image_url}
               alt={result.nombre}
-              className="h-48 w-full object-cover sm:h-56"
+              className="w-full max-h-[420px] object-contain bg-black"
               loading="lazy"
             />
           </div>
@@ -162,7 +162,7 @@ export default async function VerifyByHashPage({ params }: Props) {
 
           {/* FOOTER TÉCNICO */}
           <p className="mt-6 text-center text-[10px] text-slate-600">
-            Verification Layer · 2026.02
+            Verification Layer · 2026.03
           </p>
         </div>
       </div>
