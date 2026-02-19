@@ -1,4 +1,4 @@
-// app/(public)/verify-enterprise/[hash]/CertificateSignature.tsx
+// app/(public)/verify/[hash]/CertificateSignature.tsx
 "use client";
 
 import { useEffect, useState } from "react";

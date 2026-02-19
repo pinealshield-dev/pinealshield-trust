@@ -8,7 +8,7 @@ export function ErrorAutoBack() {
 
   useEffect(() => {
     const t = setTimeout(() => {
-      router.replace("/verify-enterprise");
+      router.replace("/verify");
     }, 7000);
 
     return () => clearTimeout(t);

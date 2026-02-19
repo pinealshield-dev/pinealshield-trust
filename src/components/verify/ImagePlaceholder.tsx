@@ -1,4 +1,4 @@
-// app/verify-enterprise/[hash]/ImagePlaceholder.tsx
+// app/verify/[hash]/ImagePlaceholder.tsx
 
 export function ImagePlaceholder() {
   return (
