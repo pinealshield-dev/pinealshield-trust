@@ -51,8 +51,8 @@ export function RevokedView({ result }: Props) {
 
             {/* WATERMARK DIAGONAL INSTITUCIONAL */}
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <span className="rotate-[-25deg] text-4xl md:text-5xl font-semibold tracking-[0.35em] text-red-400/10 select-none">
-                REVOKED
+              <span className="rotate-[-25deg] text-3xl font-medium tracking-[0.3em] text-red-400/15 select-none">
+                CERTIFICATE REVOKED
               </span>
             </div>
           </div>
@@ -77,8 +77,8 @@ export function RevokedView({ result }: Props) {
 
           {/* FOOTER TÉCNICO */}
           <footer className="pb-6 text-center text-[10px] text-slate-600 tracking-wide">
-  Verification Layer · {VERIFICATION_LAYER_VERSION}
-</footer>
+            Verification Layer · {VERIFICATION_LAYER_VERSION}
+          </footer>
         </div>
       </div>
     </main>
