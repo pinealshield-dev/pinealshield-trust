@@ -1,4 +1,3 @@
-// src/lib/verify/lookup.ts
 import { createClient } from "@supabase/supabase-js";
 import type { VerifyPublicResult } from "./types";
 
@@ -7,12 +6,13 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-export async function verifyByHash(
-  hash: string
+export async function verifyIdentifier(
+  identifier: string
 ): Promise<VerifyPublicResult> {
+
   const { data, error } = await supabase.rpc(
-    "verify_by_hash_public",
-    { p_hash: hash }
+    "verify_identifier_public",
+    { p_identifier: identifier }
   );
 
   if (error || !data) {

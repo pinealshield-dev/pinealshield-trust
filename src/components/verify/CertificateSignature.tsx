@@ -1,20 +1,19 @@
-// app/(public)/verify/[hash]/CertificateSignature.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { ShieldCheck } from "lucide-react";
 
 interface Props {
-  hash: string;
+  identifier: string;
   createdAt: string;
 }
 
-function maskHash(hash: string) {
-  if (hash.length <= 8) return hash;
-  return `${hash.slice(0, 4)}••••${hash.slice(-4)}`;
+function maskHash(identifier: string) {
+  if (identifier.length <= 8) return identifier;
+  return `${identifier.slice(0, 4)}••••${identifier.slice(-4)}`;
 }
 
-export function CertificateSignature({ hash, createdAt }: Props) {
+export function CertificateSignature({ identifier, createdAt }: Props) {
   const [mounted, setMounted] = useState(false);
   const [timestamp, setTimestamp] = useState<string>("");
 
@@ -34,8 +33,8 @@ export function CertificateSignature({ hash, createdAt }: Props) {
 
       <dl className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 text-slate-300">
         <div>
-          <dt className="text-xs uppercase text-slate-500">Hash verificado</dt>
-          <dd className="font-mono">{maskHash(hash)}</dd>
+          <dt className="text-xs uppercase text-slate-500">Cryptographic Record</dt>
+          <dd className="font-mono">{maskHash(identifier)}</dd>
         </div>
 
         <div>

@@ -3,17 +3,17 @@
 import { useState } from "react";
 
 const MIN_LEN = 8;
-const MAX_LEN = 32;
+const MAX_LEN = 64;
 
 export default function VerifyClient() {
   const [code, setCode] = useState("");
 
   const onVerify = () => {
-    const hash = code.trim();
-    if (hash.length < MIN_LEN || hash.length > MAX_LEN) return;
+    const identifier = code.trim();
+    if (identifier.length < MIN_LEN || identifier.length > MAX_LEN) return;
 
     // Navegación dura, segura y simple
-    window.location.assign(`/verify/${encodeURIComponent(hash)}`);
+    window.location.assign(`/verify/${encodeURIComponent(identifier)}`);
   };
 
   return (
@@ -41,7 +41,7 @@ export default function VerifyClient() {
             value={code}
             onChange={(e) => setCode(e.target.value)}
             maxLength={MAX_LEN}
-            placeholder="Ingresa el código de verificación"
+            placeholder="Ingresa el Artifact ID, Piece ID o código de verificación"
             className="
               w-full
               rounded-lg

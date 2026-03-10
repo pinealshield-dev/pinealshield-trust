@@ -12,9 +12,9 @@ function randomNonce(len = 6) {
   ).join("");
 }
 
-export function generateQRPayload(hash: string): QRPayload {
+export function generateQRPayload(identifier: string): QRPayload {
   return {
-    h: hash,
+    h: identifier,
     ts: Math.floor(Date.now() / 1000),
     n: randomNonce(),
   };

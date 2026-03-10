@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-import { verifyByHash } from "@/lib/verify/lookup";
+import { verifyIdentifier } from "@/lib/verify/lookup";
 
 import { VerifiedView } from "@/components/verify/VerifiedView";
 import { RevokedView } from "@/components/verify/RevokedView";
@@ -15,25 +15,25 @@ export const metadata: Metadata = {
 
 interface Props {
   params: {
-    hash?: string | string[];
+    identifier?: string | string[];
   };
 }
 
 export default async function VerifyByHashPage({ params }: Props) {
-  const { hash: raw } = await params;
+  const { identifier: raw } = await params;
 
-  const hash =
+  const identifier =
     typeof raw === "string"
       ? decodeURIComponent(raw).trim()
       : Array.isArray(raw)
       ? decodeURIComponent(raw[0]).trim()
       : "";
 
-  if (!hash || hash.length < 8 || hash.length > 32) {
+  if (!identifier || identifier.length < 8 || identifier.length > 64) {
     notFound();
   }
 
-  const result = await verifyByHash(hash);
+  const result = await verifyIdentifier(identifier);
 
   switch (result.status) {
     case "unverified":
@@ -46,6 +46,6 @@ export default async function VerifyByHashPage({ params }: Props) {
       return <ReplacedView result={result} />;
 
     case "verified":
-      return <VerifiedView hash={hash} result={result} />;
+      return <VerifiedView identifier={identifier} result={result} />;
   }
 }
