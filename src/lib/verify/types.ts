@@ -15,6 +15,7 @@ export type VerifyPublicResult =
       issued_at: string;
 
       image_url: string | null;
+      verification_origin: string;
       brand_name: string | null;
 
       signature: string;
@@ -40,6 +41,7 @@ export type VerifyPublicResult =
       issued_at: string;
 
       image_url: string | null;
+      verification_origin: string;
       brand_name: string | null;
 
       issuer_status: string;

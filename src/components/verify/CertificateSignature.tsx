@@ -6,6 +6,7 @@ import { ShieldCheck } from "lucide-react";
 interface Props {
   identifier: string;
   createdAt: string;
+  verificationOrigin?: string;
 }
 
 function maskHash(identifier: string) {
@@ -13,7 +14,7 @@ function maskHash(identifier: string) {
   return `${identifier.slice(0, 4)}••••${identifier.slice(-4)}`;
 }
 
-export function CertificateSignature({ identifier, createdAt }: Props) {
+export function CertificateSignature({ identifier, createdAt, verificationOrigin}: Props) {
   const [mounted, setMounted] = useState(false);
   const [timestamp, setTimestamp] = useState<string>("");
 
@@ -44,6 +45,18 @@ export function CertificateSignature({ identifier, createdAt }: Props) {
           </dd>
         </div>
       </dl>
+
+      {verificationOrigin && (
+        <div>
+          <dt className="text-xs uppercase text-slate-500">
+            Verification Origin
+          </dt>
+
+          <dd className="font-mono text-emerald-400">
+            {verificationOrigin}
+          </dd>
+        </div>
+      )}
 
       <p className="mt-3 text-xs text-slate-500">
         Firma visual generada en tiempo real. Puede utilizarse como comprobante digital de autenticidad.

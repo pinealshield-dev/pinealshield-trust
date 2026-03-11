@@ -23,13 +23,12 @@ export default function VerifyClient() {
       </h1>
 
       <p className="mt-2 text-slate-400">
-        Validación criptográfica oficial de productos y piezas certificadas.
+        Validación criptográfica oficial de registros de autenticidad.
       </p>
 
       <div className="mt-6 rounded-xl border border-slate-800 bg-slate-900/60 p-6">
         <p className="text-sm text-slate-300">
-          Escanea un QR o NFC, o ingresa el código para verificar la autenticidad
-          del producto.
+          Escanea un QR o ingresa el identificador de verificación.
         </p>
 
         <div className="mt-4 flex flex-col gap-3 sm:flex-row">
