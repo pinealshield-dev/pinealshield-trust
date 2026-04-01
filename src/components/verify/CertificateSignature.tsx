@@ -28,7 +28,7 @@ export function CertificateSignature({ identifier, createdAt, verificationOrigin
       <div className="flex items-center gap-2 text-emerald-400">
         <ShieldCheck className="h-5 w-5" />
         <span className="font-medium">
-          Registro validado dentro de Pineal Shield
+          Registro activo validado dentro de Pineal Shield
         </span>
       </div>
 
