@@ -28,13 +28,13 @@ export function CertificateSignature({ identifier, createdAt, verificationOrigin
       <div className="flex items-center gap-2 text-emerald-400">
         <ShieldCheck className="h-5 w-5" />
         <span className="font-medium">
-          Certificación verificada por Pineal Shield
+          Registro validado dentro de Pineal Shield
         </span>
       </div>
 
       <dl className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 text-slate-300">
         <div>
-          <dt className="text-xs uppercase text-slate-500">Cryptographic Record</dt>
+          <dt className="text-xs uppercase text-slate-500">Cryptographic Record (Integrity Proof)</dt>
           <dd className="font-mono">{maskHash(identifier)}</dd>
         </div>
 

@@ -16,6 +16,11 @@ export type VerifyPublicResult =
 
       image_url: string | null;
       verification_origin: string;
+
+      // 🔥 NUEVO
+      source_entity: string;
+      source_entity_id: string;
+
       brand_name: string | null;
 
       signature: string;
@@ -42,6 +47,11 @@ export type VerifyPublicResult =
 
       image_url: string | null;
       verification_origin: string;
+
+      // 🔥 NUEVO
+      source_entity: string;
+      source_entity_id: string;
+      
       brand_name: string | null;
 
       issuer_status: string;

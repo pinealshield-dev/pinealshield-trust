@@ -37,7 +37,7 @@ export function DynamicQR({ value, expiresAt }: Props) {
 
       <p className="mt-3 text-xs text-slate-400">
         <span suppressHydrationWarning>
-          QR dinámico ·{" "}
+          Dynamic Verification Token ·{" "}
           {mounted ? (
             <>
               válido hasta{" "}
@@ -47,6 +47,10 @@ export function DynamicQR({ value, expiresAt }: Props) {
             "generando…"
           )}
         </span>
+      </p>
+
+      <p className="mt-1 text-[11px] text-slate-500">
+        Este código dinámico garantiza la validez temporal del registro y evita su reutilización fuera de sesión.
       </p>
     </div>
   );

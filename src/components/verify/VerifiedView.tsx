@@ -22,6 +22,10 @@ interface Props {
 
     verification_origin: string;
 
+    // 🔥 NUEVO
+    source_entity: string;
+    source_entity_id: string;
+
     brand_name?: string | null;
 
     signature?: string;
@@ -62,14 +66,18 @@ export function VerifiedView({ identifier, result }: Props) {
           <div className="flex items-center gap-2 text-emerald-400">
             <ShieldCheck className="h-5 w-5" />
             <span className="font-semibold">
-              Certificación válida · Pineal Shield
+              Registro verificado · Pineal Shield
             </span>
           </div>
 
           <p className="mt-1 text-sm text-slate-300">
-            Este registro cuenta con verificación criptográfica dentro de la
-            infraestructura de confianza de Pineal Shield.
+            Este identificador corresponde a un registro activo dentro de la infraestructura Pineal Shield,
+            emitido por una entidad autorizada.
           </p>
+          <p className="mt-1 text-sm text-slate-300">
+           La verificación refleja el estado del registro dentro del sistema y su trazabilidad asociada.
+          </p>
+          
         </div>
 
         {/* IMAGE */}
@@ -183,6 +191,16 @@ export function VerifiedView({ identifier, result }: Props) {
                 {new Date(result.issued_at).toLocaleDateString()}
               </dd>
             </div>
+
+            <div>
+              <dt className="text-xs text-slate-500 uppercase">
+                Source Entity
+              </dt>
+              <dd className="text-slate-200">
+                {result.source_entity ?? result.brand_name}
+              </dd>
+            </div>
+
 
           </dl>
         </div>

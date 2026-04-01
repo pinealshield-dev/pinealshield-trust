@@ -4,7 +4,7 @@ import VerifyClient from "./VerifyClient";
 export const metadata: Metadata = {
   title: "Pineal Shield — Verificación Oficial",
   description:
-    "Validación criptográfica oficial de registros de autenticidad.",
+    "Verificación pública de registros dentro de la infraestructura Pineal Shield.",
   robots: {
     index: false,
     follow: false,

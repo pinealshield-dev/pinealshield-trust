@@ -23,7 +23,7 @@ export default function VerifyClient() {
       </h1>
 
       <p className="mt-2 text-slate-400">
-        Validación criptográfica oficial de registros de autenticidad.
+        Verificación pública de registros dentro de la infraestructura Pineal Shield.
       </p>
 
       <div className="mt-6 rounded-xl border border-slate-800 bg-slate-900/60 p-6">
@@ -81,7 +81,7 @@ export default function VerifyClient() {
         </p>
 
         <p className="mt-3 text-xs text-slate-500">
-          Verificador público de solo lectura. No requiere inicio de sesión.
+          El verificador es de solo lectura y refleja el estado actual del registro.
         </p>
       </div>
     </main>

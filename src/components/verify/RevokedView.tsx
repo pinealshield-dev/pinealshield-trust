@@ -25,12 +25,11 @@ export function RevokedView({ result }: Props) {
         {/* HEADER */}
         <div className="mb-4">
           <p className="text-lg font-semibold text-red-400">
-            Certificado revocado
+            Registro revocado
           </p>
 
           <p className="mt-2 text-sm text-slate-300">
-            Este certificado fue emitido previamente pero ha sido revocado
-            oficialmente por la entidad emisora.
+            Este registro fue emitido previamente y ha sido invalidado por la entidad emisora.
           </p>
         </div>
 
