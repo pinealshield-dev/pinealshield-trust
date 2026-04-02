@@ -1,62 +1,128 @@
+export type VerifyArtifactVerifiedResult = {
+  status: "verified";
+  entity: "artifact" | "artifact_piece" | "hash";
+  kind: "producto" | "pieza";
+
+  nombre: string;
+
+  artifact_id?: string;
+  artifact_piece_id?: string;
+
+  hash?: string;
+
+  issued_at: string;
+
+  image_url: string | null;
+  verification_origin: string;
+
+  source_entity: string;
+  source_entity_id: string;
+
+  brand_name: string | null;
+
+  signature: string;
+  qr_exp: string;
+
+  issuer_status: string;
+};
+
+export type VerifyArtifactRevokedResult = {
+  status: "revoked" | "replaced";
+  entity: "artifact" | "artifact_piece" | "hash";
+  kind: "producto" | "pieza";
+
+  nombre: string;
+
+  artifact_id?: string;
+  artifact_piece_id?: string;
+
+  hash?: string;
+
+  issued_at: string;
+
+  image_url: string | null;
+  verification_origin: string;
+
+  source_entity: string;
+  source_entity_id: string;
+
+  brand_name: string | null;
+
+  issuer_status: string;
+};
+
+export type VerifyDocumentVerifiedResult = {
+  status: "verified";
+  entity: "document";
+  kind: "document";
+
+  document_id?: string;
+  file_url?: string | null;
+  holder_name?: string | null;
+  holder_identifier?: string | null;
+
+  nombre: string;
+
+  hash?: string;
+
+  issued_at: string;
+
+  image_url: string | null;
+  verification_origin: string;
+
+  source_entity: string;
+  source_entity_id: string;
+
+  brand_name: string | null;
+
+  signature: string;
+  qr_exp: string;
+
+  issuer_status: string;
+};
+
+export type VerifyDocumentRevokedResult = {
+  status: "revoked" | "replaced";
+  entity: "document";
+  kind: "document";
+
+  document_id?: string;
+  file_url?: string | null;
+  holder_name?: string | null;
+  holder_identifier?: string | null;
+
+  nombre: string;
+
+  hash?: string;
+
+  issued_at: string;
+
+  image_url: string | null;
+  verification_origin: string;
+
+  source_entity: string;
+  source_entity_id: string;
+
+  brand_name: string | null;
+
+  issuer_status: string;
+};
+
+export type VerifyUnverifiedResult = {
+  status: "unverified";
+};
+
+export type VerifyArtifactResult =
+  | VerifyArtifactVerifiedResult
+  | VerifyArtifactRevokedResult;
+
+export type VerifyDocumentResult =
+  | VerifyDocumentVerifiedResult
+  | VerifyDocumentRevokedResult;
+
 export type VerifyPublicResult =
-  | {
-      status: "verified";
-      entity: "artifact" | "artifact_piece" | "hash";
-
-      kind: "producto" | "pieza";
-
-      nombre: string;
-
-      artifact_id?: string;
-      artifact_piece_id?: string;
-
-      hash?: string;
-
-      issued_at: string;
-
-      image_url: string | null;
-      verification_origin: string;
-
-      // 🔥 NUEVO
-      source_entity: string;
-      source_entity_id: string;
-
-      brand_name: string | null;
-
-      signature: string;
-      qr_exp: string;
-
-      issuer_status: string;
-    }
-
-  | {
-      status: "revoked" | "replaced";
-
-      entity: "artifact" | "artifact_piece" | "hash";
-
-      kind: "producto" | "pieza";
-
-      nombre: string;
-
-      artifact_id?: string;
-      artifact_piece_id?: string;
-
-      hash?: string;
-
-      issued_at: string;
-
-      image_url: string | null;
-      verification_origin: string;
-
-      // 🔥 NUEVO
-      source_entity: string;
-      source_entity_id: string;
-      
-      brand_name: string | null;
-
-      issuer_status: string;
-    }
-
-  | {
-      status: "unverified";
-    };
+  | VerifyArtifactVerifiedResult
+  | VerifyArtifactRevokedResult
+  | VerifyDocumentVerifiedResult
+  | VerifyDocumentRevokedResult
+  | VerifyUnverifiedResult;
