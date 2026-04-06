@@ -2,11 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 import { verifyIdentifier } from "@/lib/verify/lookup";
-
-import { VerifiedView } from "@/components/verify/VerifiedView";
-import { RevokedView } from "@/components/verify/RevokedView";
-import { ReplacedView } from "@/components/verify/ReplacedView";
-import { UnverifiedView } from "@/components/verify/UnverifiedView";
+import VerifyResultView from "@/components/verify/VerifyResultView";
 
 export const metadata: Metadata = {
   title: "Pineal Shield — Certificado",
@@ -35,17 +31,10 @@ export default async function VerifyByHashPage({ params }: Props) {
 
   const result = await verifyIdentifier(identifier);
 
-  switch (result.status) {
-    case "unverified":
-      return <UnverifiedView />;
-
-    case "revoked":
-      return <RevokedView result={result} />;
-
-    case "replaced":
-      return <ReplacedView result={result} />;
-
-    case "verified":
-      return <VerifiedView identifier={identifier} result={result} />;
-  }
+  return (
+    <VerifyResultView
+      result={result}
+      identifier={identifier}
+    />
+  );
 }

@@ -2,6 +2,7 @@ import { ImagePlaceholder } from "@/components/verify/ImagePlaceholder";
 import { VERIFICATION_LAYER_VERSION } from "@/lib/version";
 
 interface Props {
+  identifier: string;
   result: {
     kind: "producto" | "pieza";
     nombre: string;
@@ -10,7 +11,7 @@ interface Props {
   };
 }
 
-export function ReplacedView({ result }: Props) {
+export default function ReplacedView({ result }: Props) {
   return (
     <main className="mx-auto max-w-3xl p-6 text-slate-100">
       <div className="relative rounded-xl border border-amber-500/40 bg-amber-900/10 p-6">

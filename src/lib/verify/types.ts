@@ -1,5 +1,6 @@
 export type VerifyArtifactVerifiedResult = {
   status: "verified";
+  lifecycle_status?: "issued" | "revoked" | "replaced";
   entity: "artifact" | "artifact_piece" | "hash";
   kind: "producto" | "pieza";
 
@@ -50,6 +51,12 @@ export type VerifyArtifactRevokedResult = {
 
   issuer_status: string;
 };
+
+export type VerifyArtifactLifecycle = {
+  lifecycle_status?: "issued" | "revoked" | "replaced";
+};
+
+
 
 export type VerifyDocumentVerifiedResult = {
   status: "verified";
@@ -112,6 +119,13 @@ export type VerifyUnverifiedResult = {
   status: "unverified";
 };
 
+export type VerifyPublicResult =
+  | VerifyArtifactVerifiedResult
+  | VerifyArtifactRevokedResult
+  | VerifyDocumentVerifiedResult
+  | VerifyDocumentRevokedResult
+  | VerifyUnverifiedResult;
+
 export type VerifyArtifactResult =
   | VerifyArtifactVerifiedResult
   | VerifyArtifactRevokedResult;
@@ -119,10 +133,3 @@ export type VerifyArtifactResult =
 export type VerifyDocumentResult =
   | VerifyDocumentVerifiedResult
   | VerifyDocumentRevokedResult;
-
-export type VerifyPublicResult =
-  | VerifyArtifactVerifiedResult
-  | VerifyArtifactRevokedResult
-  | VerifyDocumentVerifiedResult
-  | VerifyDocumentRevokedResult
-  | VerifyUnverifiedResult;

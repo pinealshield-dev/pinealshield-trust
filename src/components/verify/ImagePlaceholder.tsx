@@ -1,4 +1,4 @@
-export function ImagePlaceholder() {
+export  function ImagePlaceholder() {
   return (
     <div className="mb-4 rounded-xl border border-slate-800 bg-black/40 p-6 text-center">
       {/* Icono sello */}

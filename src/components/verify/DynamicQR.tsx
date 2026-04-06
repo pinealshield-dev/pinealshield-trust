@@ -8,7 +8,7 @@ interface Props {
   expiresAt: Date;
 }
 
-export function DynamicQR({ value, expiresAt }: Props) {
+export  function DynamicQR({ value, expiresAt }: Props) {
   const [mounted, setMounted] = useState(false);
   const [label, setLabel] = useState("");
 

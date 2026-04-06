@@ -1,6 +1,6 @@
 import { ErrorAutoBack } from "@/components/verify/ErrorAutoBack";
 
-export function UnverifiedView() {
+export  function UnverifiedView() {
   return (
     <main className="mx-auto max-w-3xl p-6 text-slate-100">
       <div className="rounded-xl border border-slate-800 bg-black/40 p-6">

@@ -1,85 +1,154 @@
-import { VerifyDocumentResult } from "@/lib/verify/types";
+import VerifyLayout from "@/components/verify/VerifyLayout";
+import { CertificateSignature } from "@/components/verify/CertificateSignature";
+import { DynamicQR } from "@/components/verify/DynamicQR";
 
-type Props = {
-  result: VerifyDocumentResult;
-};
+interface Props {
+  identifier: string;
+  result: {
+    status: "verified" | "revoked" | "replaced";
+    kind: "document";
+    nombre: string;
 
-export default function DocumentView({ result }: Props) {
-  const isRevoked =
-    result.status === "revoked" || result.status === "replaced";
+    document_id?: string;
+    file_url?: string | null;
+
+    issued_at: string;
+
+    verification_origin: string;
+    source_entity: string;
+    brand_name?: string | null;
+
+    qr_exp?: string;
+  };
+}
+
+export default function DocumentView({ identifier, result }: Props) {
+  const status = result.status;
 
   return (
-    <div className="space-y-6">
+    <VerifyLayout
+      status={status}
+      title="Document Record"
+      subtitle={result.document_id}
+    >
+      {/* TITLE */}
+      <div className="mb-5 text-center">
+        <h2 className="text-xl font-semibold text-slate-100">
+          {result.nombre}
+        </h2>
+      </div>
 
-      {/* STATUS */}
-      <div className="text-center">
-        <h1 className="text-2xl font-semibold">
-          {isRevoked ? "Document Revoked" : "Document Verified"}
-        </h1>
+      {/* METADATA */}
+      <dl className="grid grid-cols-2 gap-4 text-sm mb-5">
+        <div>
+          <dt className="text-xs uppercase text-slate-400">
+            Tipo
+          </dt>
+          <dd>Documento</dd>
+        </div>
 
-        <p className="text-sm text-neutral-500">
-          {result.verification_origin}
+        <div>
+          <dt className="text-xs uppercase text-slate-400">
+            Emitido
+          </dt>
+          <dd>
+            {new Date(result.issued_at).toLocaleString()}
+          </dd>
+        </div>
+
+        <div className="col-span-2">
+          <dt className="text-xs uppercase text-slate-400">
+            Emisor
+          </dt>
+          <dd>
+            {result.source_entity ?? result.brand_name}
+          </dd>
+        </div>
+      </dl>
+
+      {/* DOCUMENT ACCESS */}
+      <div className="mt-6 rounded-lg border border-slate-800 bg-black/30 p-4">
+        <p className="mb-2 text-xs uppercase tracking-wide text-slate-500">
+          Documento certificado
         </p>
-      </div>
 
-      {/* NAME */}
-      <div className="text-center">
-        <h2 className="text-xl">{result.nombre}</h2>
-      </div>
-
-      {/* DOCUMENT ID */}
-      {result.document_id && (
-        <div className="text-center text-xs text-neutral-400">
-          ID: {result.document_id}
-        </div>
-      )}
-
-      {/* HOLDER */}
-      {(result.holder_name || result.holder_identifier) && (
-        <div className="text-center text-sm text-neutral-600">
-          {result.holder_name && <div>{result.holder_name}</div>}
-          {result.holder_identifier && (
-            <div className="text-xs">{result.holder_identifier}</div>
-          )}
-        </div>
-      )}
-
-      {/* ISSUER */}
-      <div className="text-center text-sm">
-        Issued by: {result.source_entity}
-      </div>
-
-      {/* TIMESTAMP */}
-      <div className="text-center text-xs text-neutral-500">
-        Issued at: {new Date(result.issued_at).toLocaleString()}
-      </div>
-
-      {/* FILE */}
-      {result.file_url && !isRevoked && (
-        <div className="text-center">
-          <a
-            href={result.file_url}
-            target="_blank"
-            className="text-sm underline"
+        {result.file_url ? (
+          <button
+            disabled
+            className="w-full rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-500 cursor-not-allowed"
           >
-            View Document
-          </a>
+            Documento disponible próximamente
+          </button>
+        ) : (
+          <div className="text-sm text-slate-500">
+            No hay documento asociado a este registro
+          </div>
+        )}
+      </div>
+
+      {/* SIGNATURE */}
+      <CertificateSignature
+        identifier={identifier}
+        createdAt={result.issued_at}
+        verificationOrigin={result.verification_origin}
+      />
+
+      {/* QR (solo si existe) */}
+      {result.qr_exp && (
+        <div className="mt-6">
+          <DynamicQR
+            value={identifier}
+            expiresAt={new Date(result.qr_exp)}
+          />
         </div>
       )}
 
-      {/* STATUS */}
-      {isRevoked && (
-        <div className="text-center text-red-500 text-sm">
-          This document is no longer valid
-        </div>
-      )}
+      {/* PROVENANCE */}
+      <div className="mt-6 rounded-lg border border-slate-800 bg-black/30 p-4">
+        <p className="mb-3 text-xs uppercase tracking-wide text-slate-500">
+          Document Provenance
+        </p>
 
-      {/* SIGNATURE (opcional si decides incluirla en tipo) */}
-      {"signature" in result && !isRevoked && (
-        <div className="text-center text-xs text-neutral-400">
-          {result.signature}
-        </div>
-      )}
-    </div>
+        <dl className="grid grid-cols-2 gap-3 text-sm">
+          {result.document_id && (
+            <div>
+              <dt className="text-xs text-slate-500 uppercase">
+                Document ID
+              </dt>
+              <dd className="font-mono text-slate-200">
+                {result.document_id}
+              </dd>
+            </div>
+          )}
+
+          <div>
+            <dt className="text-xs text-slate-500 uppercase">
+              Status
+            </dt>
+            <dd className="text-slate-200 capitalize">
+              {status}
+            </dd>
+          </div>
+
+          <div>
+            <dt className="text-xs text-slate-500 uppercase">
+              Issued
+            </dt>
+            <dd className="text-slate-200">
+              {new Date(result.issued_at).toLocaleDateString()}
+            </dd>
+          </div>
+
+          <div>
+            <dt className="text-xs text-slate-500 uppercase">
+              Source Entity
+            </dt>
+            <dd className="text-slate-200">
+              {result.source_entity}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </VerifyLayout>
   );
 }
