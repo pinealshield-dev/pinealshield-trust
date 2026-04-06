@@ -28,8 +28,8 @@ export default function DocumentView({ identifier, result }: Props) {
   return (
     <VerifyLayout
       status={status}
-      title="Document Record"
-      subtitle={result.document_id}
+      title="Certified Record"
+      subtitle={result.document_id ?? identifier}
     >
       {/* TITLE */}
       <div className="mb-5 text-center">
@@ -72,23 +72,22 @@ export default function DocumentView({ identifier, result }: Props) {
           Documento certificado
         </p>
 
-        {result.file_url ? (
-          <button
-            disabled
-            className="w-full rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-500 cursor-not-allowed"
-          >
-            Documento disponible próximamente
-          </button>
-        ) : (
-          <div className="text-sm text-slate-500">
-            No hay documento asociado a este registro
-          </div>
-        )}
+        <div className="text-sm text-slate-400 text-center leading-relaxed">
+          Este registro cuenta con un documento certificado dentro de la
+          infraestructura Pineal Shield.
+          <br /><br />
+          La validez oficial del documento debe confirmarse exclusivamente
+          mediante esta interfaz de verificación.
+          <br /><br />
+          <span className="text-xs text-slate-500">
+            La evidencia documental asociada se gestiona bajo acceso controlado.
+          </span>
+        </div>
       </div>
 
       {/* SIGNATURE */}
       <CertificateSignature
-        identifier={identifier}
+        identifier={result.document_id ?? identifier}
         createdAt={result.issued_at}
         verificationOrigin={result.verification_origin}
       />
