@@ -2,7 +2,7 @@ import type { VerifyPublicResult } from "@/lib/verify/types";
 
 import ArtifactView from "@/components/verify/ArtifactView";
 import DocumentView from "@/components/verify/DocumentView";
-import {UnverifiedView} from "@/components/verify/UnverifiedView";
+import { UnverifiedView } from "@/components/verify/UnverifiedView";
 
 type Props = {
   identifier: string;
@@ -10,12 +10,18 @@ type Props = {
 };
 
 export default function VerifyResultView({ result, identifier }: Props) {
-  // 🔴 1. UNVERIFIED (no entity)
+
+  // 🔴 1. UNVERIFIED
   if (result.status === "unverified") {
     return <UnverifiedView />;
   }
 
-  // 🟢 2. ARTIFACTS
+  // 🔴 2. LOG DE INTEGRIDAD (observabilidad)
+  if (result.status === "verified" && result.chain_valid === false) {
+    console.warn("[VERIFY] Integrity inconsistency detected", identifier);
+  }
+
+  // 🟢 3. ARTIFACTS
   if (result.entity === "artifact" || result.entity === "artifact_piece") {
     return (
       <ArtifactView
@@ -25,7 +31,7 @@ export default function VerifyResultView({ result, identifier }: Props) {
     );
   }
 
-  // 🟢 3. DOCUMENTS
+  // 🟢 4. DOCUMENTS
   if (result.entity === "document") {
     return (
       <DocumentView
@@ -35,6 +41,6 @@ export default function VerifyResultView({ result, identifier }: Props) {
     );
   }
 
-  // 🟡 4. fallback defensivo (no debería pasar)
+  // 🟡 5. fallback defensivo
   return <UnverifiedView />;
 }

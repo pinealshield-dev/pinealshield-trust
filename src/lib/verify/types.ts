@@ -1,123 +1,158 @@
-export type VerifyArtifactVerifiedResult = {
-  status: "verified";
-  lifecycle_status?: "issued" | "revoked" | "replaced";
-  entity: "artifact" | "artifact_piece" | "hash";
-  kind: "producto" | "pieza";
-
-  nombre: string;
-
-  artifact_id?: string;
-  artifact_piece_id?: string;
-
-  hash?: string;
-
-  issued_at: string;
-
-  image_url: string | null;
-  verification_origin: string;
-
-  source_entity: string;
-  source_entity_id: string;
-
-  brand_name: string | null;
-
-  signature: string;
-  qr_exp: string;
-
-  issuer_status: string;
+// 🔒 Capa transversal de integridad (infraestructura)
+export type VerifyIntegrity = {
+  chain_valid?: boolean;
 };
 
-export type VerifyArtifactRevokedResult = {
-  status: "revoked" | "replaced";
-  entity: "artifact" | "artifact_piece" | "hash";
-  kind: "producto" | "pieza";
+// =====================================================
+// 🧩 ARTIFACTS — VERIFIED
+// =====================================================
 
-  nombre: string;
+export type VerifyArtifactVerifiedResult =
+  VerifyIntegrity & {
+    status: "verified";
+    lifecycle_status?: "issued" | "revoked" | "replaced";
+    entity: "artifact" | "artifact_piece" | "hash";
+    kind: "producto" | "pieza";
 
-  artifact_id?: string;
-  artifact_piece_id?: string;
+    nombre: string;
 
-  hash?: string;
+    artifact_id?: string;
+    artifact_piece_id?: string;
 
-  issued_at: string;
+    hash?: string;
 
-  image_url: string | null;
-  verification_origin: string;
+    issued_at: string;
 
-  source_entity: string;
-  source_entity_id: string;
+    image_url: string | null;
+    verification_origin: string;
 
-  brand_name: string | null;
+    source_entity: string;
+    source_entity_id: string;
 
-  issuer_status: string;
-};
+    brand_name: string | null;
+
+    signature: string;
+    qr_exp: string;
+
+    issuer_status: string;
+  };
+
+// =====================================================
+// 🧩 ARTIFACTS — REVOKED / REPLACED
+// =====================================================
+
+export type VerifyArtifactRevokedResult =
+  VerifyIntegrity & {
+    status: "revoked" | "replaced";
+    entity: "artifact" | "artifact_piece" | "hash";
+    kind: "producto" | "pieza";
+
+    nombre: string;
+
+    artifact_id?: string;
+    artifact_piece_id?: string;
+
+    hash?: string;
+
+    issued_at: string;
+
+    image_url: string | null;
+    verification_origin: string;
+
+    source_entity: string;
+    source_entity_id: string;
+
+    brand_name: string | null;
+
+    issuer_status: string;
+  };
+
+// =====================================================
+// 🧩 ARTIFACT LIFECYCLE (SIN CAMBIO)
+// =====================================================
 
 export type VerifyArtifactLifecycle = {
   lifecycle_status?: "issued" | "revoked" | "replaced";
 };
 
+// =====================================================
+// 📄 DOCUMENTS — VERIFIED
+// =====================================================
 
+export type VerifyDocumentVerifiedResult =
+  VerifyIntegrity & {
+    status: "verified";
+    entity: "document";
+    kind: "document";
 
-export type VerifyDocumentVerifiedResult = {
-  status: "verified";
-  entity: "document";
-  kind: "document";
+    document_id?: string;
+    file_url?: string | null;
+    holder_name?: string | null;
+    holder_identifier?: string | null;
 
-  document_id?: string;
-  file_url?: string | null;
-  holder_name?: string | null;
-  holder_identifier?: string | null;
+    nombre: string;
 
-  nombre: string;
+    hash?: string;
 
-  hash?: string;
+    issued_at: string;
 
-  issued_at: string;
+    image_url: string | null;
+    verification_origin: string;
 
-  image_url: string | null;
-  verification_origin: string;
+    source_entity: string;
+    source_entity_id: string;
 
-  source_entity: string;
-  source_entity_id: string;
+    brand_name: string | null;
 
-  brand_name: string | null;
+    signature: string;
+    qr_exp: string;
 
-  signature: string;
-  qr_exp: string;
+    issuer_status: string;
+  };
 
-  issuer_status: string;
-};
+// =====================================================
+// 📄 DOCUMENTS — REVOKED / REPLACED
+// =====================================================
 
-export type VerifyDocumentRevokedResult = {
-  status: "revoked" | "replaced";
-  entity: "document";
-  kind: "document";
+export type VerifyDocumentRevokedResult =
+  VerifyIntegrity & {
+    status: "revoked" | "replaced";
+    entity: "document";
+    kind: "document";
 
-  document_id?: string;
-  file_url?: string | null;
-  holder_name?: string | null;
-  holder_identifier?: string | null;
+    document_id?: string;
+    file_url?: string | null;
+    holder_name?: string | null;
+    holder_identifier?: string | null;
 
-  nombre: string;
+    nombre: string;
 
-  hash?: string;
+    hash?: string;
 
-  issued_at: string;
+    issued_at: string;
 
-  image_url: string | null;
-  verification_origin: string;
+    image_url: string | null;
+    verification_origin: string;
 
-  source_entity: string;
-  source_entity_id: string;
+    source_entity: string;
+    source_entity_id: string;
 
-  brand_name: string | null;
+    brand_name: string | null;
 
-  issuer_status: string;
-};
+    issuer_status: string;
+  };
+
+// =====================================================
+// ❌ UNVERIFIED (NO INTEGRITY)
+// =====================================================
 
 export type VerifyUnverifiedResult = {
   status: "unverified";
 };
+
+// =====================================================
+// 🌐 PUBLIC RESULT (UNION)
+// =====================================================
 
 export type VerifyPublicResult =
   | VerifyArtifactVerifiedResult
@@ -125,6 +160,10 @@ export type VerifyPublicResult =
   | VerifyDocumentVerifiedResult
   | VerifyDocumentRevokedResult
   | VerifyUnverifiedResult;
+
+// =====================================================
+// 🔧 HELPERS
+// =====================================================
 
 export type VerifyArtifactResult =
   | VerifyArtifactVerifiedResult

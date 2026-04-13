@@ -7,6 +7,7 @@ interface Props {
   identifier: string;
   createdAt: string;
   verificationOrigin?: string;
+  chainValid?: boolean;
 }
 
 function maskHash(identifier: string) {
@@ -14,7 +15,7 @@ function maskHash(identifier: string) {
   return `${identifier.slice(0, 4)}••••${identifier.slice(-4)}`;
 }
 
-export function CertificateSignature({ identifier, createdAt, verificationOrigin}: Props) {
+export function CertificateSignature({ identifier, createdAt, verificationOrigin,chainValid = true,}: Props) {
   const [mounted, setMounted] = useState(false);
   const [timestamp, setTimestamp] = useState<string>("");
 
@@ -25,10 +26,16 @@ export function CertificateSignature({ identifier, createdAt, verificationOrigin
 
   return (
     <div className="mt-6 rounded-lg border border-slate-800 bg-black/40 p-4 text-sm">
-      <div className="flex items-center gap-2 text-emerald-400">
+      <div
+        className={`flex items-center gap-2 ${
+          chainValid ? "text-emerald-400" : "text-yellow-400"
+        }`}
+      >
         <ShieldCheck className="h-5 w-5" />
         <span className="font-medium">
-          Registro activo validado dentro de Pineal Shield
+          {chainValid
+            ? "Registro activo validado dentro de Pineal Shield"
+            : "Registro activo con integridad no verificable"}
         </span>
       </div>
 
