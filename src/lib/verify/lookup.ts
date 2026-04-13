@@ -10,10 +10,15 @@ export async function verifyIdentifier(
   identifier: string
 ): Promise<VerifyPublicResult> {
 
-  const { data, error } = await supabase.rpc(
-    "verify_identifier_public",
-    { p_identifier: identifier }
-  );
+  const { data, error } = await supabase.rpc("verify_identifier_public",{ 
+    p_identifier: identifier,
+    p_context: {
+    type: "verify_web",
+    platform: "web",
+    source: "public_verify",
+    ts: new Date().toISOString()
+    }
+  });
 
   if (error || !data) {
     return { status: "unverified" };

@@ -17,6 +17,7 @@ interface Props {
     source_entity: string;
     brand_name?: string | null;
     qr_exp: string;
+    chain_valid?: boolean;
   };
 }
 
@@ -26,6 +27,7 @@ export default function VerifiedView({ identifier, result }: Props) {
       status="verified"
       title="Artifact Record"
       subtitle={result.artifact_id}
+      chainValid={result.chain_valid} // 🔴 CLAVE
     >
       {/* IMAGE */}
       {result.image_url ? (
@@ -53,10 +55,12 @@ export default function VerifiedView({ identifier, result }: Props) {
         </div>
       </dl>
 
+      {/* 🔴 PASAMOS INTEGRIDAD */}
       <CertificateSignature
         identifier={identifier}
         createdAt={result.issued_at}
         verificationOrigin={result.verification_origin}
+        chainValid={result.chain_valid}
       />
 
       <div className="mt-6">

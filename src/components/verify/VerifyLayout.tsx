@@ -1,13 +1,14 @@
 import { VERIFICATION_LAYER_VERSION } from "@/lib/version";
 import { ShieldCheck, ShieldX, AlertTriangle } from "lucide-react";
 
-type Status = "verified" | "revoked" | "replaced";
+type Status = "verified" | "revoked" | "replaced" | "compromised";
 
 interface Props {
   status: Status;
   title: string;
   subtitle?: string;
   children: React.ReactNode;
+  chainValid?: boolean;
 }
 
 export default function VerifyLayout({
@@ -15,6 +16,7 @@ export default function VerifyLayout({
   title,
   subtitle,
   children,
+  chainValid = true,
 }: Props) {
   const styles = {
     verified: {
@@ -35,9 +37,17 @@ export default function VerifyLayout({
       label: "Registro reemplazado",
       text: "text-yellow-400",
     },
+    compromised: {
+      container: "border-yellow-500/40 bg-yellow-500/10",
+      icon: <AlertTriangle className="h-5 w-5 text-yellow-400" />,
+      label: "Registro con integridad comprometida",
+      text: "text-yellow-400",
+    },
   };
 
-  const current = styles[status];
+  const effectiveStatus =
+  status === "verified" && !chainValid ? "compromised" : status;
+  const current = styles[effectiveStatus];
 
   return (
     <main className="mx-auto max-w-2xl p-4 sm:p-6 text-slate-100">
@@ -70,9 +80,59 @@ export default function VerifyLayout({
           </div>
 
           <p className="mt-1 text-sm text-slate-300">
-            Estado del registro validado dentro de la infraestructura Pineal Shield.
+            {status === "verified"
+              ? chainValid
+                ? "Registro verificado dentro de la infraestructura Pineal Shield. Este registro forma parte de una cadena de verificación íntegra y consistente."
+                : "Registro verificado con advertencia de integridad. La cadena de verificación presenta inconsistencias. Se recomienda validación adicional con la entidad emisora."
+              : "Estado del registro determinado por la entidad emisora dentro de la infraestructura Pineal Shield."}
           </p>
         </div>
+
+        {/* 🔴 INTEGRITY BLOCK (DIFERENCIADOR REAL) */}
+        {status === "verified" && (
+          <div
+            className={`mb-5 rounded-lg border p-4 ${
+              chainValid
+                ? "border-emerald-500/20 bg-black/30"
+                : "border-yellow-500/40 bg-yellow-500/10"
+            }`}
+          >
+            {/* HEADER */}
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col">
+                <span className="text-xs uppercase tracking-wide text-slate-500">
+                  Registry Integrity
+                </span>
+
+                <span className="text-[11px] text-slate-500">
+                  Cryptographic Chain Verification
+                </span>
+              </div>
+
+              <span
+                className={`text-xs font-semibold ${
+                  chainValid
+                    ? "text-emerald-400"
+                    : "text-yellow-400"
+                }`}
+              >
+                {chainValid ? "VALID" : "COMPROMISED"}
+              </span>
+            </div>
+
+            {/* DESCRIPTION */}
+            <p className="mt-2 text-xs text-slate-400 leading-relaxed">
+              {chainValid
+                ? "Este registro forma parte de una secuencia de eventos criptográficamente verificable y resistente a alteraciones."
+                : "Se detectó una inconsistencia en la cadena de eventos. La integridad del registro no puede garantizarse completamente."}
+            </p>
+
+            {/* 🔴 DIFERENCIADOR (MODELO) */}
+            <div className="mt-3 text-[11px] text-slate-500 border-t border-slate-800 pt-2">
+              Verification model: event-based cryptographic chain
+            </div>
+          </div>
+        )}
 
         {/* CONTENT */}
         {children}
