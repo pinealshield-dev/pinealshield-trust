@@ -10,7 +10,7 @@ export function UnverifiedView({ variant = "not_found" }: Props) {
   const content = {
     not_found: {
       title: "Registro no encontrado",
-      subtitle: "Código no válido",
+      subtitle: "Código no reconocido",
       description:
         "Este identificador no existe dentro de la infraestructura Pineal Shield.",
       status: "unverified" as const,

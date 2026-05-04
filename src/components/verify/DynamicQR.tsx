@@ -24,21 +24,21 @@ export function DynamicQR({ value, expiresAt }: Props) {
   }, [expiresAt]);
 
   return (
-    <div className="mt-6 rounded-xl border border-slate-800 bg-black/40 p-5 text-center">
+    <div className="mt-6 rounded-xl border border-slate-800 bg-black/20 p-5 text-center">
       
-      <div className="mx-auto flex h-[180px] w-[180px] items-center justify-center rounded-lg bg-black">
+      <div className="mx-auto flex h-[140px] w-[140px] items-center justify-center rounded-lg bg-black">
         <QRCodeSVG
           value={value}
-          size={160}
+          size={130}
           level="M"
-          fgColor="#10b981"
-          bgColor="transparent"
+          fgColor="#ffffff"
+          bgColor="#000000"
         />
       </div>
 
       <p className="mt-3 text-xs text-slate-400">
         <span suppressHydrationWarning>
-          Token dinámico de verificación ·{" "}
+          Código de verificación ·{" "}
           {mounted ? (
             <>
               válido hasta{" "}
@@ -48,10 +48,6 @@ export function DynamicQR({ value, expiresAt }: Props) {
             "generando…"
           )}
         </span>
-      </p>
-
-      <p className="mt-1 text-[11px] text-slate-500">
-        Código de verificación con validez temporal.
       </p>
     </div>
   );

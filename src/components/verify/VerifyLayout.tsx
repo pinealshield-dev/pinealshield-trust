@@ -27,7 +27,7 @@ export default function VerifyLayout({
     verified: {
       container: "border-emerald-500/40 bg-emerald-500/10",
       icon: <ShieldCheck className="h-5 w-5 text-emerald-400" />,
-      label: "Registro verificado",
+      label: "Autenticidad verificada",
       text: "text-emerald-400",
     },
     revoked: {
@@ -72,7 +72,7 @@ export default function VerifyLayout({
     compromised:
       "Se detectó una inconsistencia en la integridad del registro. No puede garantizarse su autenticidad.",
     unverified:
-      "Si este producto debería estar registrado, contacte a la marca o proveedor.",
+      "Este código no es reconocido dentro de la infraestructura Pineal Shield.",
   };
 
   return (
@@ -109,55 +109,15 @@ export default function VerifyLayout({
             {message[effectiveStatus]}
           </p>
           <p className="mt-2 text-[11px] text-slate-500">
-            Validación pública operada por Pineal Shield.
+            Validación pública certificada por Pineal Shield.
           </p>
         </div>
 
-        {/* 🔴 INTEGRITY BLOCK SOLO SI TIENE SENTIDO */}
-        {status === "verified" && (
-          <div
-            className={`mb-5 rounded-lg border p-4 ${
-              chainValid
-                ? "border-slate-800 bg-black/20"
-                : "border-yellow-500/40 bg-yellow-500/10"
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col">
-                <span className="text-xs uppercase tracking-wide text-slate-500">
-                  Registry Integrity
-                </span>
-
-                <span className="text-[11px] text-slate-500">
-                  Cryptographic Chain Verification
-                </span>
-              </div>
-
-              <span
-                className={`text-xs font-semibold ${
-                  chainValid
-                    ? "text-emerald-400"
-                    : "text-yellow-400"
-                }`}
-              >
-                {chainValid ? "VALID" : "COMPROMISED"}
-              </span>
-            </div>
-
-            <p className="mt-2 text-xs text-slate-400 leading-relaxed">
-              {chainValid
-                ? "Este registro está protegido contra alteraciones y forma parte de una secuencia verificable."
-                : "Se detectó una inconsistencia en la cadena de eventos. Se recomienda validación adicional."}
-            </p>
-
-            <div className="mt-3 text-[11px] text-slate-500 border-t border-slate-800 pt-2">
-              Verification model: event-based cryptographic chain
-            </div>
-          </div>
-        )}
+       
 
         {/* CONTENT */}
         {children}
+
 
         {/* FOOTER */}
         <div className="mt-6 text-center">
