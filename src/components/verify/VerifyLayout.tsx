@@ -72,7 +72,7 @@ export default function VerifyLayout({
     compromised:
       "Se detectó una inconsistencia en la integridad del registro. No puede garantizarse su autenticidad.",
     unverified:
-      "Este identificador no existe dentro de la infraestructura Pineal Shield.",
+      "Si este producto debería estar registrado, contacte a la marca o proveedor.",
   };
 
   return (
@@ -107,6 +107,9 @@ export default function VerifyLayout({
 
           <p className="mt-1 text-sm text-slate-300">
             {message[effectiveStatus]}
+          </p>
+          <p className="mt-2 text-[11px] text-slate-500">
+            Validación pública operada por Pineal Shield.
           </p>
         </div>
 
