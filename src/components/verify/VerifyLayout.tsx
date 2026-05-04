@@ -22,7 +22,7 @@ export default function VerifyLayout({
     verified: {
       container: "border-emerald-500/40 bg-emerald-500/10",
       icon: <ShieldCheck className="h-5 w-5 text-emerald-400" />,
-      label: "Registro verificado · Pineal Shield",
+      label: "Registro verificado",
       text: "text-emerald-400",
     },
     revoked: {
@@ -80,11 +80,15 @@ export default function VerifyLayout({
           </div>
 
           <p className="mt-1 text-sm text-slate-300">
-            {status === "verified"
+            {effectiveStatus === "verified"
               ? chainValid
-                ? "Registro verificado dentro de la infraestructura Pineal Shield. Este registro forma parte de una cadena de verificación íntegra y consistente."
-                : "Registro verificado con advertencia de integridad. La cadena de verificación presenta inconsistencias. Se recomienda validación adicional con la entidad emisora."
-              : "Estado del registro determinado por la entidad emisora dentro de la infraestructura Pineal Shield."}
+                ? "Registro verificado dentro de la infraestructura Pineal Shield."
+                : "Registro verificado con advertencia de integridad. Se recomienda validación adicional."
+              : effectiveStatus === "revoked"
+              ? "Este registro ha sido invalidado por la entidad emisora."
+              : effectiveStatus === "replaced"
+              ? "Este registro ha sido reemplazado por una versión más reciente."
+              : "Se detectó una inconsistencia en la integridad del registro."}
           </p>
         </div>
 
@@ -93,7 +97,7 @@ export default function VerifyLayout({
           <div
             className={`mb-5 rounded-lg border p-4 ${
               chainValid
-                ? "border-emerald-500/20 bg-black/30"
+                ? "border-slate-800 bg-black/20"
                 : "border-yellow-500/40 bg-yellow-500/10"
             }`}
           >

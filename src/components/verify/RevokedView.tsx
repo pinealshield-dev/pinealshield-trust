@@ -1,5 +1,5 @@
-import { ImagePlaceholder }  from "@/components/verify/ImagePlaceholder";
-import { VERIFICATION_LAYER_VERSION } from "@/lib/version";
+import VerifyLayout from "@/components/verify/VerifyLayout";
+import { ImagePlaceholder } from "@/components/verify/ImagePlaceholder";
 
 interface Props {
   identifier: string;
@@ -13,74 +13,36 @@ interface Props {
 
 export default function RevokedView({ result }: Props) {
   return (
-    <main className="mx-auto max-w-3xl p-6 text-slate-100">
-      <div className="relative rounded-xl border border-red-500/40 bg-red-900/10 p-6">
+    <VerifyLayout
+      status="revoked"
+      title="Registro de producto"
+      subtitle={result.nombre}
+    >
+      {/* IMAGEN (SIN DRAMA) */}
+      {result.image_url ? (
+        <div className="mb-5 rounded-xl border border-slate-800 bg-black p-4">
+          <img
+            src={result.image_url}
+            alt={result.nombre}
+            className="w-full max-h-[320px] object-contain mx-auto opacity-40"
+          />
+        </div>
+      ) : (
+        <ImagePlaceholder />
+      )}
 
-        {/* BADGE TÉCNICO SUPERIOR */}
-        <div className="absolute top-4 right-4">
-          <span className="rounded-full border border-red-500/40 bg-red-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-red-400">
-            Certificate Status · Revoked
-          </span>
+      {/* INFO BÁSICA */}
+      <dl className="grid grid-cols-2 gap-4 text-sm">
+        <div>
+          <dt className="text-xs uppercase text-slate-400">Tipo</dt>
+          <dd>{result.kind === "producto" ? "Producto" : "Pieza"}</dd>
         </div>
 
-        {/* HEADER */}
-        <div className="mb-4">
-          <p className="text-lg font-semibold text-red-400">
-            Registro revocado
-          </p>
-
-          <p className="mt-2 text-sm text-slate-300">
-            Este registro fue emitido previamente y ha sido invalidado por la entidad emisora.
-          </p>
+        <div>
+          <dt className="text-xs uppercase text-slate-400">Emitido</dt>
+          <dd>{new Date(result.issued_at).toLocaleString()}</dd>
         </div>
-
-        {/* IMAGEN */}
-        {result.image_url ? (
-          <div className="relative mb-6 overflow-hidden rounded-xl border border-red-500/30 bg-black">
-
-            {/* IMAGEN BASE */}
-            <img
-              src={result.image_url}
-              alt={result.nombre}
-              className="w-full max-h-[420px] object-contain bg-black opacity-50"
-              loading="lazy"
-            />
-
-            {/* OVERLAY ROJO SUAVE */}
-            <div className="absolute inset-0 bg-red-900/40 backdrop-blur-[1px]" />
-
-            {/* WATERMARK DIAGONAL INSTITUCIONAL */}
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <span className="rotate-[-25deg] text-3xl font-medium tracking-[0.3em] text-red-400/15 select-none">
-                CERTIFICATE REVOKED
-              </span>
-            </div>
-          </div>
-        ) : (
-          <div className="mt-4">
-            <ImagePlaceholder />
-          </div>
-        )}
-
-        {/* ACCIÓN */}
-        <div className="mt-6">
-          <a
-            href="/verify"
-            className="rounded-lg border border-slate-800 px-4 py-2 text-sm text-slate-300 hover:bg-slate-900"
-          >
-            Verificar otro código
-          </a>
-
-          <p className="mt-4 text-xs text-red-300/70">
-            Estado oficial actualizado en tiempo real.
-          </p>
-
-          {/* FOOTER TÉCNICO */}
-          <footer className="pb-6 text-center text-[10px] text-slate-600 tracking-wide">
-            Verification Layer · {VERIFICATION_LAYER_VERSION}
-          </footer>
-        </div>
-      </div>
-    </main>
+      </dl>
+    </VerifyLayout>
   );
 }

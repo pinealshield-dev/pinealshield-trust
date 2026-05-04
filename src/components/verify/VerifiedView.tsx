@@ -25,8 +25,8 @@ export default function VerifiedView({ identifier, result }: Props) {
   return (
     <VerifyLayout
       status="verified"
-      title="Artifact Record"
-      subtitle={result.artifact_id}
+      title="Registro de producto"
+      subtitle={result.artifact_id ?? result.artifact_piece_id ?? identifier}
       chainValid={result.chain_valid} // 🔴 CLAVE
     >
       {/* IMAGE */}
@@ -34,7 +34,7 @@ export default function VerifiedView({ identifier, result }: Props) {
         <div className="mb-5 overflow-hidden rounded-xl border border-slate-800 bg-black aspect-[4/3]">
           <img
             src={result.image_url}
-            alt={result.nombre ?? "Artifact"}
+            alt={result.nombre ?? "Producto certificado"}
             className="w-full h-full object-contain"
           />
         </div>

@@ -28,7 +28,7 @@ export default function DocumentView({ identifier, result }: Props) {
   return (
     <VerifyLayout
       status={status}
-      title="Certified Record"
+      title="Registro certificado"
       subtitle={result.document_id ?? identifier}
     >
       {/* TITLE */}
@@ -38,7 +38,7 @@ export default function DocumentView({ identifier, result }: Props) {
         </h2>
       </div>
 
-      {/* METADATA */}
+      {/* METADATA BÁSICA */}
       <dl className="grid grid-cols-2 gap-4 text-sm mb-5">
         <div>
           <dt className="text-xs uppercase text-slate-400">
@@ -66,33 +66,14 @@ export default function DocumentView({ identifier, result }: Props) {
         </div>
       </dl>
 
-      {/* DOCUMENT ACCESS */}
-      <div className="mt-6 rounded-lg border border-slate-800 bg-black/30 p-4">
-        <p className="mb-2 text-xs uppercase tracking-wide text-slate-500">
-          Documento certificado
-        </p>
-
-        <div className="text-sm text-slate-400 text-center leading-relaxed">
-          Este registro cuenta con un documento certificado dentro de la
-          infraestructura Pineal Shield.
-          <br /><br />
-          La validez oficial del documento debe confirmarse exclusivamente
-          mediante esta interfaz de verificación.
-          <br /><br />
-          <span className="text-xs text-slate-500">
-            La evidencia documental asociada se gestiona bajo acceso controlado.
-          </span>
-        </div>
-      </div>
-
-      {/* SIGNATURE */}
+      {/* 🔒 EVIDENCIA (MISMO NIVEL QUE ARTIFACT) */}
       <CertificateSignature
         identifier={result.document_id ?? identifier}
         createdAt={result.issued_at}
         verificationOrigin={result.verification_origin}
       />
 
-      {/* QR (solo si existe) */}
+      {/* 🔽 QR (SECUNDARIO) */}
       {result.qr_exp && (
         <div className="mt-6">
           <DynamicQR
@@ -101,53 +82,6 @@ export default function DocumentView({ identifier, result }: Props) {
           />
         </div>
       )}
-
-      {/* PROVENANCE */}
-      <div className="mt-6 rounded-lg border border-slate-800 bg-black/30 p-4">
-        <p className="mb-3 text-xs uppercase tracking-wide text-slate-500">
-          Document Provenance
-        </p>
-
-        <dl className="grid grid-cols-2 gap-3 text-sm">
-          {result.document_id && (
-            <div>
-              <dt className="text-xs text-slate-500 uppercase">
-                Document ID
-              </dt>
-              <dd className="font-mono text-slate-200">
-                {result.document_id}
-              </dd>
-            </div>
-          )}
-
-          <div>
-            <dt className="text-xs text-slate-500 uppercase">
-              Status
-            </dt>
-            <dd className="text-slate-200 capitalize">
-              {status}
-            </dd>
-          </div>
-
-          <div>
-            <dt className="text-xs text-slate-500 uppercase">
-              Issued
-            </dt>
-            <dd className="text-slate-200">
-              {new Date(result.issued_at).toLocaleDateString()}
-            </dd>
-          </div>
-
-          <div>
-            <dt className="text-xs text-slate-500 uppercase">
-              Source Entity
-            </dt>
-            <dd className="text-slate-200">
-              {result.source_entity}
-            </dd>
-          </div>
-        </dl>
-      </div>
     </VerifyLayout>
   );
 }

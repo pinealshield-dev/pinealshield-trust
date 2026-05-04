@@ -1,10 +1,9 @@
-export  function ImagePlaceholder() {
+export function ImagePlaceholder() {
   return (
     <div className="mb-4 rounded-xl border border-slate-800 bg-black/40 p-6 text-center">
-      {/* Icono sello */}
-      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-emerald-500/40 bg-emerald-500/10">
+      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-slate-700 bg-slate-900/60">
         <svg
-          className="h-5 w-5 text-emerald-400"
+          className="h-5 w-5 text-slate-400"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -13,7 +12,7 @@ export  function ImagePlaceholder() {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M9 12l2 2 4-4m5-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            d="M4 4h14v10H4z M7 7h8 M7 10h5"
           />
         </svg>
       </div>
@@ -22,8 +21,8 @@ export  function ImagePlaceholder() {
         Imagen no proporcionada por la marca
       </p>
 
-      <p className="mt-1 text-xs text-slate-400">
-        La autenticidad de este producto ha sido verificada digitalmente por Pineal Shield.
+      <p className="mt-1 text-xs text-slate-500">
+        La verificación se determina por el registro digital, no por la imagen.
       </p>
     </div>
   );

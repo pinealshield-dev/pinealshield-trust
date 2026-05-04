@@ -8,7 +8,7 @@ interface Props {
   expiresAt: Date;
 }
 
-export  function DynamicQR({ value, expiresAt }: Props) {
+export function DynamicQR({ value, expiresAt }: Props) {
   const [mounted, setMounted] = useState(false);
   const [label, setLabel] = useState("");
 
@@ -25,19 +25,20 @@ export  function DynamicQR({ value, expiresAt }: Props) {
 
   return (
     <div className="mt-6 rounded-xl border border-slate-800 bg-black/40 p-5 text-center">
+      
       <div className="mx-auto flex h-[180px] w-[180px] items-center justify-center rounded-lg bg-black">
         <QRCodeSVG
           value={value}
           size={160}
           level="M"
-          fgColor="#34d399"
+          fgColor="#10b981"
           bgColor="transparent"
         />
       </div>
 
       <p className="mt-3 text-xs text-slate-400">
         <span suppressHydrationWarning>
-          Dynamic Verification Token ·{" "}
+          Token dinámico de verificación ·{" "}
           {mounted ? (
             <>
               válido hasta{" "}
@@ -50,7 +51,7 @@ export  function DynamicQR({ value, expiresAt }: Props) {
       </p>
 
       <p className="mt-1 text-[11px] text-slate-500">
-        Este código dinámico garantiza la validez temporal del registro y evita su reutilización fuera de sesión.
+        Código de verificación con validez temporal.
       </p>
     </div>
   );

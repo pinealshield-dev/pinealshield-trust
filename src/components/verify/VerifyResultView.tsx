@@ -12,7 +12,11 @@ type Props = {
 export default function VerifyResultView({ result, identifier }: Props) {
 
   // 🔴 1. UNVERIFIED
-  if (result.status === "unverified") {
+  if (
+    result.status === "unverified" ||
+    !result.entity ||
+    !["artifact", "artifact_piece", "document"].includes(result.entity)
+  ) {
     return <UnverifiedView />;
   }
 
