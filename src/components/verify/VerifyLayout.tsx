@@ -1,7 +1,12 @@
 import { VERIFICATION_LAYER_VERSION } from "@/lib/version";
 import { ShieldCheck, ShieldX, AlertTriangle } from "lucide-react";
 
-type Status = "verified" | "revoked" | "replaced" | "compromised";
+type Status =
+  | "verified"
+  | "revoked"
+  | "replaced"
+  | "compromised"
+  | "unverified";
 
 interface Props {
   status: Status;
@@ -38,16 +43,37 @@ export default function VerifyLayout({
       text: "text-yellow-400",
     },
     compromised: {
-      container: "border-yellow-500/40 bg-yellow-500/10",
-      icon: <AlertTriangle className="h-5 w-5 text-yellow-400" />,
-      label: "Registro con integridad comprometida",
-      text: "text-yellow-400",
+      container: "border-red-500/40 bg-red-500/10",
+      icon: <AlertTriangle className="h-5 w-5 text-red-400" />,
+      label: "Integridad comprometida",
+      text: "text-red-400",
+    },
+    unverified: {
+      container: "border-slate-700 bg-slate-800/40",
+      icon: <ShieldX className="h-5 w-5 text-slate-400" />,
+      label: "Registro no encontrado",
+      text: "text-slate-400",
     },
   };
 
   const effectiveStatus =
-  status === "verified" && !chainValid ? "compromised" : status;
+    status === "verified" && !chainValid ? "compromised" : status;
+
   const current = styles[effectiveStatus];
+
+  // 🔴 COPY CENTRALIZADO (CLAVE)
+  const message = {
+    verified:
+      "Este producto es auténtico y coincide con los registros oficiales.",
+    revoked:
+      "Este registro ha sido invalidado por la entidad emisora.",
+    replaced:
+      "Este registro ha sido reemplazado por una versión más reciente.",
+    compromised:
+      "Se detectó una inconsistencia en la integridad del registro. No puede garantizarse su autenticidad.",
+    unverified:
+      "Este identificador no existe dentro de la infraestructura Pineal Shield.",
+  };
 
   return (
     <main className="mx-auto max-w-2xl p-4 sm:p-6 text-slate-100">
@@ -80,19 +106,11 @@ export default function VerifyLayout({
           </div>
 
           <p className="mt-1 text-sm text-slate-300">
-            {effectiveStatus === "verified"
-              ? chainValid
-                ? "Registro verificado dentro de la infraestructura Pineal Shield."
-                : "Registro verificado con advertencia de integridad. Se recomienda validación adicional."
-              : effectiveStatus === "revoked"
-              ? "Este registro ha sido invalidado por la entidad emisora."
-              : effectiveStatus === "replaced"
-              ? "Este registro ha sido reemplazado por una versión más reciente."
-              : "Se detectó una inconsistencia en la integridad del registro."}
+            {message[effectiveStatus]}
           </p>
         </div>
 
-        {/* 🔴 INTEGRITY BLOCK (DIFERENCIADOR REAL) */}
+        {/* 🔴 INTEGRITY BLOCK SOLO SI TIENE SENTIDO */}
         {status === "verified" && (
           <div
             className={`mb-5 rounded-lg border p-4 ${
@@ -101,7 +119,6 @@ export default function VerifyLayout({
                 : "border-yellow-500/40 bg-yellow-500/10"
             }`}
           >
-            {/* HEADER */}
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-xs uppercase tracking-wide text-slate-500">
@@ -124,14 +141,12 @@ export default function VerifyLayout({
               </span>
             </div>
 
-            {/* DESCRIPTION */}
             <p className="mt-2 text-xs text-slate-400 leading-relaxed">
               {chainValid
-                ? "Este registro forma parte de una secuencia de eventos criptográficamente verificable y resistente a alteraciones."
-                : "Se detectó una inconsistencia en la cadena de eventos. La integridad del registro no puede garantizarse completamente."}
+                ? "Este registro está protegido contra alteraciones y forma parte de una secuencia verificable."
+                : "Se detectó una inconsistencia en la cadena de eventos. Se recomienda validación adicional."}
             </p>
 
-            {/* 🔴 DIFERENCIADOR (MODELO) */}
             <div className="mt-3 text-[11px] text-slate-500 border-t border-slate-800 pt-2">
               Verification model: event-based cryptographic chain
             </div>

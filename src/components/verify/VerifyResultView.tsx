@@ -4,28 +4,40 @@ import ArtifactView from "@/components/verify/ArtifactView";
 import DocumentView from "@/components/verify/DocumentView";
 import { UnverifiedView } from "@/components/verify/UnverifiedView";
 
+import { normalizeStatus } from "@/lib/verify/normalize";
+
 type Props = {
   identifier: string;
   result: VerifyPublicResult;
 };
 
+// 🔴 TYPE GUARD
+function hasEntity(
+  result: VerifyPublicResult
+): result is Exclude<VerifyPublicResult, { status: "unverified" }> {
+  return (result as any).entity !== undefined;
+}
+
 export default function VerifyResultView({ result, identifier }: Props) {
 
-  // 🔴 1. UNVERIFIED
-  if (
-    result.status === "unverified" ||
-    !result.entity ||
-    !["artifact", "artifact_piece", "document"].includes(result.entity)
-  ) {
-    return <UnverifiedView />;
+  const uiStatus = normalizeStatus(result);
+
+  // 🔴 1. NOT FOUND
+  if (uiStatus === "not_found") {
+    return <UnverifiedView variant="not_found" />;
   }
 
-  // 🔴 2. LOG DE INTEGRIDAD (observabilidad)
-  if (result.status === "verified" && result.chain_valid === false) {
+  // 🔴 2. SI NO TIENE ENTITY → también fuera
+  if (!hasEntity(result)) {
+    return <UnverifiedView variant="not_found" />;
+  }
+
+  // 🔴 3. LOG INTEGRIDAD
+  if (uiStatus === "compromised") {
     console.warn("[VERIFY] Integrity inconsistency detected", identifier);
   }
 
-  // 🟢 3. ARTIFACTS
+  // 🟢 4. ARTIFACTS
   if (result.entity === "artifact" || result.entity === "artifact_piece") {
     return (
       <ArtifactView
@@ -35,7 +47,7 @@ export default function VerifyResultView({ result, identifier }: Props) {
     );
   }
 
-  // 🟢 4. DOCUMENTS
+  // 🟢 5. DOCUMENTS
   if (result.entity === "document") {
     return (
       <DocumentView
@@ -45,6 +57,6 @@ export default function VerifyResultView({ result, identifier }: Props) {
     );
   }
 
-  // 🟡 5. fallback defensivo
-  return <UnverifiedView />;
+  // 🟡 fallback
+  return <UnverifiedView variant="not_found" />;
 }
