@@ -49,6 +49,9 @@ export function DynamicQR({ value, expiresAt }: Props) {
           )}
         </span>
       </p>
+      <p className="mt-1 text-[11px] text-slate-600">
+         Este código cambia constantemente para evitar duplicaciones o uso indebido.
+      </p>
     </div>
   );
 }

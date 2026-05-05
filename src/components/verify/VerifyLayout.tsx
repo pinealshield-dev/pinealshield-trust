@@ -111,6 +111,10 @@ export default function VerifyLayout({
           <p className="mt-2 text-[11px] text-slate-500">
             Validación pública certificada por Pineal Shield.
           </p>
+
+          <p className="mt-2 text-[11px] text-slate-500">
+            Pineal Shield actúa como capa independiente de verificación y certificación digital.
+          </p>
         </div>
 
        

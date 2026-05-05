@@ -1,6 +1,7 @@
 export function ImagePlaceholder() {
   return (
     <div className="mb-5 rounded-xl border border-slate-800 bg-black/40 p-6 text-center">
+      
       <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-slate-700 bg-slate-900/60">
         <svg
           className="h-5 w-5 text-slate-400"
@@ -28,6 +29,7 @@ export function ImagePlaceholder() {
       <p className="mt-2 text-[11px] text-slate-600">
         Emitido por la marca certificada en Pineal Shield.
       </p>
+
     </div>
   );
 }
