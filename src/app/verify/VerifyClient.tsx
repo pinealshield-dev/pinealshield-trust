@@ -19,11 +19,11 @@ export default function VerifyClient() {
   return (
     <main className="mx-auto max-w-3xl p-6 text-slate-100">
       <h1 className="text-3xl font-semibold">
-        Pineal Shield — Verificación Oficial
+        Pineal Shield — Verificación de Registros
       </h1>
 
       <p className="mt-2 text-slate-400">
-        Verificación pública de registros dentro de la infraestructura Pineal Shield.
+        Consulta pública del estado de registros emitidos dentro de Pineal Shield.
       </p>
 
       <div className="mt-6 rounded-xl border border-slate-800 bg-slate-900/60 p-6">
@@ -72,7 +72,7 @@ export default function VerifyClient() {
               min-h-[44px]
             "
           >
-            Verificar autenticidad
+            Verificar registro
           </button>
         </div>
 
@@ -81,7 +81,7 @@ export default function VerifyClient() {
         </p>
 
         <p className="mt-3 text-xs text-slate-500">
-          El verificador es de solo lectura y refleja el estado actual del registro.
+          El verificador refleja el estado actual del registro dentro de Pineal Shield.
         </p>
       </div>
     </main>

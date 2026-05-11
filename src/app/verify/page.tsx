@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import VerifyClient from "./VerifyClient";
 
 export const metadata: Metadata = {
-  title: "Pineal Shield — Verificación Oficial",
+  title: "Pineal Shield — Verificación de Registros",
   description:
-    "Verificación pública de registros dentro de la infraestructura Pineal Shield.",
+    "Consulta pública del estado de registros emitidos dentro de Pineal Shield.",
   robots: {
     index: false,
     follow: false,

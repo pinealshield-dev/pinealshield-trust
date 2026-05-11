@@ -28,7 +28,7 @@ export default function VerifiedView({ identifier, result }: Props) {
   return (
     <VerifyLayout
       status="verified"
-      title="Producto autenticado"
+      title="Registro verificado"
       subtitle={result.artifact_id ?? result.artifact_piece_id ?? identifier}
       chainValid={chainValid}
     >
@@ -36,7 +36,7 @@ export default function VerifiedView({ identifier, result }: Props) {
       {/* 🔴 BRAND BLOCK */}
       <div className="mb-6 text-center border-b border-slate-800 pb-4">
         <p className="text-[10px] uppercase tracking-[0.25em] text-slate-500">
-          CERTIFICADO POR
+          EMITIDO POR
         </p>
 
         <p className="text-xl font-semibold text-slate-100 mt-2">
@@ -97,7 +97,7 @@ export default function VerifiedView({ identifier, result }: Props) {
                 Integridad del registro
               </p>
               <p className="text-[11px] text-slate-500">
-                Verificación criptográfica
+                Verificación de integridad
               </p>
             </div>
 
@@ -106,13 +106,13 @@ export default function VerifiedView({ identifier, result }: Props) {
                 chainValid ? "text-emerald-400" : "text-yellow-400"
               }`}
             >
-              {chainValid ? "VALID" : "COMPROMISED"}
+              {chainValid ? "VERIFICADO" : "COMPROMISED"}
             </span>
           </div>
 
           <p className="mt-2 text-xs text-slate-400">
             {chainValid
-              ? "Este registro está protegido contra alteraciones y puede ser auditado en cualquier momento."
+              ? "Este registro incorpora controles de integridad y trazabilidad verificable."
               : "Se detectó una inconsistencia en la cadena de eventos. Se recomienda validación adicional."}
           </p>
 

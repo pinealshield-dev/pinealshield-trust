@@ -28,7 +28,7 @@ export default function DocumentView({ identifier, result }: Props) {
   return (
     <VerifyLayout
       status={status}
-      title="Registro certificado"
+      title="Registro verificado"
       subtitle={result.document_id ?? identifier}
     >
       {/* TITLE */}

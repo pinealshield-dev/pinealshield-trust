@@ -27,7 +27,7 @@ export default function VerifyLayout({
     verified: {
       container: "border-emerald-500/40 bg-emerald-500/10",
       icon: <ShieldCheck className="h-5 w-5 text-emerald-400" />,
-      label: "Autenticidad verificada",
+      label: "Registro verificado",
       text: "text-emerald-400",
     },
     revoked: {
@@ -64,9 +64,9 @@ export default function VerifyLayout({
   // 🔴 COPY CENTRALIZADO (CLAVE)
   const message = {
     verified:
-      "Este producto es auténtico y coincide con los registros oficiales.",
+      "Este registro coincide con la información emitida dentro de Pineal Shield.",
     revoked:
-      "Este registro ha sido invalidado por la entidad emisora.",
+      "Este registro fue revocado por la entidad emisora.",
     replaced:
       "Este registro ha sido reemplazado por una versión más reciente.",
     compromised:
@@ -109,11 +109,11 @@ export default function VerifyLayout({
             {message[effectiveStatus]}
           </p>
           <p className="mt-2 text-[11px] text-slate-500">
-            Validación pública certificada por Pineal Shield.
+            Verificación pública operada por Pineal Shield.
           </p>
 
           <p className="mt-2 text-[11px] text-slate-500">
-            Pineal Shield actúa como capa independiente de verificación y certificación digital.
+            Pineal Shield opera como infraestructura independiente de verificación y trazabilidad digital.
           </p>
         </div>
 

@@ -35,7 +35,7 @@ export function CertificateSignature({
       <div className="flex items-center gap-2 text-slate-300">
         <ShieldCheck className="h-5 w-5 text-emerald-400" />
         <span className="font-medium">
-          Registro certificado
+          Registro verificado
         </span>
       </div>
 

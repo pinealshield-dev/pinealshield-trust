@@ -23,11 +23,11 @@ export function ImagePlaceholder() {
       </p>
 
       <p className="mt-1 text-xs text-slate-500">
-        Este producto ha sido validado mediante su registro digital certificado.
+        Este producto estuvo asociado a un registro emitido dentro de Pineal Shield.
       </p>
 
       <p className="mt-2 text-[11px] text-slate-600">
-        Emitido por la marca certificada en Pineal Shield.
+        Emitido por una entidad registrada dentro de Pineal Shield.
       </p>
 
     </div>
