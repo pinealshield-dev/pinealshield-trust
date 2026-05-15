@@ -9,7 +9,7 @@ export function ErrorAutoBack() {
   useEffect(() => {
     const t = setTimeout(() => {
       router.replace("/verify");
-    }, 7000);
+    }, 10000);
 
     return () => clearTimeout(t);
   }, [router]);

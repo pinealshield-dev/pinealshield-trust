@@ -10,16 +10,16 @@ export function UnverifiedView({ variant = "not_found" }: Props) {
   const content = {
     not_found: {
       title: "Registro no encontrado",
-      subtitle: "Código no reconocido",
+      subtitle: "Referencia no verificable",
       description:
-        "Este identificador no existe dentro de la infraestructura Pineal Shield.",
+        "No fue posible encontrar una referencia verificable asociada a este identificador.",
       status: "unverified" as const,
     },
     error: {
-      title: "No verificable",
-      subtitle: "Error de validación",
+      title: "Validación temporalmente no disponible",
+      subtitle: "Verificación no completada",
       description:
-        "No fue posible validar este registro en este momento.",
+        "La verificación pública no pudo completarse temporalmente. Intente nuevamente más tarde.",
       status: "unverified" as const,
     },
   };
@@ -32,9 +32,15 @@ export function UnverifiedView({ variant = "not_found" }: Props) {
       title={current.title}
       subtitle={current.subtitle}
     >
-      <div className="text-center text-sm text-slate-400">
+      <div className="rounded-xl border border-slate-800 bg-black/20 px-5 py-6 text-center">
+      <p className="text-sm leading-relaxed text-slate-400">
         {current.description}
+        </p>
       </div>
+
+      <p className="mt-5 text-center text-[11px] tracking-[0.12em] text-slate-500">
+        Regresando automáticamente al portal de verificación…
+      </p>
 
       <ErrorAutoBack />
     </VerifyLayout>

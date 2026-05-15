@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { ShieldCheck } from "lucide-react";
 
 interface Props {
@@ -8,6 +5,16 @@ interface Props {
   createdAt: string;
   verificationOrigin?: string;
   chainValid?: boolean;
+}
+function formatInstitutionalDate(date: string) {
+  return new Intl.DateTimeFormat("es-MX", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(new Date(date));
 }
 
 function maskHash(identifier: string) {
@@ -20,58 +27,53 @@ export function CertificateSignature({
   createdAt,
   verificationOrigin,
 }: Props) {
-  const [mounted, setMounted] = useState(false);
-  const [timestamp, setTimestamp] = useState<string>("");
-
-  useEffect(() => {
-    setMounted(true);
-    setTimestamp(new Date(createdAt).toLocaleString());
-  }, [createdAt]);
+ 
 
   return (
-    <div className="mt-6 rounded-lg border border-slate-800 bg-black/40 p-4 text-sm">
+    <div className="mt-6 rounded-xl border border-slate-800 bg-black/20 p-5">
 
       {/* 🔒 CAMBIO: ya NO es estado, es evidencia */}
       <div className="flex items-center gap-2 text-slate-300">
-        <ShieldCheck className="h-5 w-5 text-emerald-400" />
-        <span className="font-medium">
-          Registro verificado
+        <ShieldCheck className="h-4 w-4 text-emerald-300" />
+
+        <span className="text-sm font-medium tracking-wide">
+          Registro validado
         </span>
       </div>
 
-      <dl className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 text-slate-300">
+      <dl className="mt-4 grid grid-cols-1 gap-y-4 gap-x-6 sm:grid-cols-2">
         <div>
-          <dt className="text-xs uppercase text-slate-500">
-            Hash (masked)
+          <dt className="text-[11px] uppercase tracking-wide text-slate-500">
+            Huella criptográfica
           </dt>
-          <dd className="font-mono">
+          <dd className="mt-1 font-mono text-sm text-slate-200">
             {maskHash(identifier)}
           </dd>
         </div>
 
         <div>
-          <dt className="text-xs uppercase text-slate-500">
-            Timestamp
+          <dt className="text-[11px] uppercase tracking-wide text-slate-500">
+            Registro temporal
           </dt>
-          <dd suppressHydrationWarning>
-            {mounted ? timestamp : "—"}
+          <dd className="mt-1 text-sm text-slate-200">
+            {formatInstitutionalDate(createdAt)}
           </dd>
         </div>
       </dl>
 
       {verificationOrigin && (
         <div className="mt-2">
-          <dt className="text-xs uppercase text-slate-500">
-            Verification Origin
+          <dt className="text-[11px] uppercase tracking-wide text-slate-500">
+            Origen de validación
           </dt>
-          <dd className="font-mono text-emerald-400">
+          <dd className="mt-1 font-mono text-sm text-emerald-300">
             {verificationOrigin}
           </dd>
         </div>
       )}
 
-      <p className="mt-3 text-xs text-slate-500">
-        Evidencia criptográfica asociada al registro verificado.
+      <p className="mt-4 border-t border-slate-800 pt-3 text-[11px] leading-relaxed text-slate-500">
+        Referencia documental asociada al registro validado.
       </p>
     </div>
   );

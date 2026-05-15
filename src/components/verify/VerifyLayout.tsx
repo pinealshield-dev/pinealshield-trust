@@ -25,25 +25,25 @@ export default function VerifyLayout({
 }: Props) {
   const styles = {
     verified: {
-      container: "border-emerald-500/40 bg-emerald-500/10",
-      icon: <ShieldCheck className="h-5 w-5 text-emerald-400" />,
+      container: "border-emerald-900/50 bg-emerald-950/30",
+      icon: <ShieldCheck className="h-5 w-5 text-emerald-300" />,
       label: "Registro verificado",
       text: "text-emerald-400",
     },
     revoked: {
-      container: "border-red-500/40 bg-red-500/10",
-      icon: <ShieldX className="h-5 w-5 text-red-400" />,
+      container: "border-red-900/40 bg-red-950/25",
+      icon: <ShieldX className="h-5 w-5 text-red-300" />,
       label: "Registro revocado",
       text: "text-red-400",
     },
     replaced: {
-      container: "border-yellow-500/40 bg-yellow-500/10",
-      icon: <AlertTriangle className="h-5 w-5 text-yellow-400" />,
+      container: "border-amber-900/40 bg-amber-950/20",
+      icon: <AlertTriangle className="h-5 w-5 text-yellow-300" />,
       label: "Registro reemplazado",
       text: "text-yellow-400",
     },
     compromised: {
-      container: "border-red-500/40 bg-red-500/10",
+      container: "border-red-800/60 bg-red-950/35",
       icon: <AlertTriangle className="h-5 w-5 text-red-400" />,
       label: "Integridad comprometida",
       text: "text-red-400",
@@ -64,33 +64,33 @@ export default function VerifyLayout({
   // 🔴 COPY CENTRALIZADO (CLAVE)
   const message = {
     verified:
-      "Este registro coincide con la información emitida dentro de Pineal Shield.",
+      "Este registro mantiene consistencia con la información emitida dentro de Pineal Shield.",
     revoked:
-      "Este registro fue revocado por la entidad emisora.",
+      "Este registro dejó de estar vigente dentro de Pineal Shield.",
     replaced:
-      "Este registro ha sido reemplazado por una versión más reciente.",
+      "Este registro fue sustituido por una referencia verificable más reciente.",
     compromised:
-      "Se detectó una inconsistencia en la integridad del registro. No puede garantizarse su autenticidad.",
+      "Se detectó una inconsistencia operativa en la validación del registro.",
     unverified:
-      "Este código no es reconocido dentro de la infraestructura Pineal Shield.",
+      "No existe una referencia verificable asociada a este identificador.",
   };
 
   return (
-    <main className="mx-auto max-w-2xl p-4 sm:p-6 text-slate-100">
-      <div className="rounded-xl border border-slate-800 bg-black/40 p-5">
+    <main className="mx-auto max-w-2xl px-4 py-5 sm:px-6 sm:py-8 text-slate-100">
+      <div className="rounded-2xl border border-slate-800 bg-black/30 p-5 sm:p-6">
 
         {/* HEADER */}
-        <div className="mb-4 border-b border-slate-800 pb-4">
-          <p className="text-[10px] tracking-[0.25em] text-slate-500">
+        <div className="mb-4 border-b border-slate-800 pb-5">
+          <p className="text-[10px] uppercase tracking-[0.28em] text-slate-500">
             PINEAL SHIELD REGISTRY
           </p>
 
-          <h1 className="mt-1 text-lg font-semibold text-slate-100">
+          <h1 className="mt-2 text-[26px] font-semibold tracking-tight text-slate-100 leading-tight">
             {title}
           </h1>
 
           {subtitle && (
-            <p className="mt-2 text-sm text-slate-400">
+            <p className="mt-3 font-mono text-sm text-slate-300 break-all">
               {subtitle}
             </p>
           )}
@@ -100,7 +100,7 @@ export default function VerifyLayout({
         <div className={`mb-5 rounded-lg border p-4 ${current.container}`}>
           <div className={`flex items-center gap-2 ${current.text}`}>
             {current.icon}
-            <span className="font-semibold">
+            <span className="text-sm font-semibold tracking-wide">
               {current.label}
             </span>
           </div>
@@ -108,12 +108,8 @@ export default function VerifyLayout({
           <p className="mt-1 text-sm text-slate-300">
             {message[effectiveStatus]}
           </p>
-          <p className="mt-2 text-[11px] text-slate-500">
-            Verificación pública operada por Pineal Shield.
-          </p>
-
-          <p className="mt-2 text-[11px] text-slate-500">
-            Pineal Shield opera como infraestructura independiente de verificación y trazabilidad digital.
+          <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
+            Infraestructura institucional orientada a validación, trazabilidad y consistencia verificable.
           </p>
         </div>
 
@@ -127,12 +123,12 @@ export default function VerifyLayout({
         <div className="mt-6 text-center">
           <a
             href="/verify"
-            className="rounded-lg border border-slate-800 px-4 py-2 text-sm text-slate-300 hover:bg-slate-900"
+            className="inline-flex items-center justify-center rounded-xl border border-slate-800 px-4 py-2 text-sm text-slate-300 transition hover:border-slate-700 hover:bg-slate-900/50"
           >
             Verificar otro código
           </a>
 
-          <footer className="mt-6 text-[10px] text-slate-600 tracking-wide">
+          <footer className="mt-8 text-[10px] uppercase tracking-[0.22em] text-slate-600">
             Verification Layer · {VERIFICATION_LAYER_VERSION}
           </footer>
         </div>
