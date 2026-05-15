@@ -15,7 +15,7 @@ type Props = {
 function hasEntity(
   result: VerifyPublicResult
 ): result is Exclude<VerifyPublicResult, { status: "unverified" }> {
-  return (result as any).entity !== undefined;
+  return "entity" in result;
 }
 
 export default function VerifyResultView({ result, identifier }: Props) {
@@ -32,31 +32,28 @@ export default function VerifyResultView({ result, identifier }: Props) {
     return <UnverifiedView variant="not_found" />;
   }
 
-  // 🔴 3. LOG INTEGRIDAD
-  if (uiStatus === "compromised") {
-    console.warn("[VERIFY] Integrity inconsistency detected", identifier);
-  }
 
-  // 🟢 4. ARTIFACTS
-  if (result.entity === "artifact" || result.entity === "artifact_piece") {
-    return (
-      <ArtifactView
-        result={result}
-        identifier={identifier}
-      />
-    );
-  }
+  // 🟢 ENTITY ROUTING
+  switch (result.entity) {
 
-  // 🟢 5. DOCUMENTS
-  if (result.entity === "document") {
-    return (
-      <DocumentView
-        result={result}
-        identifier={identifier}
-      />
-    );
-  }
+    case "artifact":
+    case "artifact_piece":
+      return (
+        <ArtifactView
+          result={result}
+          identifier={identifier}
+        />
+      );
 
-  // 🟡 fallback
-  return <UnverifiedView variant="not_found" />;
+    case "document":
+      return (
+        <DocumentView
+          result={result}
+          identifier={identifier}
+        />
+      );
+
+    default:
+      return <UnverifiedView variant="not_found" />;
+  }
 }

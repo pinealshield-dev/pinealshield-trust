@@ -24,33 +24,49 @@ export function DynamicQR({ value, expiresAt }: Props) {
   }, [expiresAt]);
 
   return (
-    <div className="mt-6 rounded-xl border border-slate-800 bg-black/20 p-5 text-center">
+    <div className="mt-6 rounded-2xl border border-slate-800 bg-black/20 px-5 py-6 text-center">
       
-      <div className="mx-auto flex h-[140px] w-[140px] items-center justify-center rounded-lg bg-black">
+      <div className="relative mx-auto flex h-[140px] w-[140px] items-center justify-center rounded-lg bg-slate-950">
+        <div
+          className="
+            absolute inset-0
+            flex items-center justify-center
+            opacity-[0.075]
+            pointer-events-none
+          "
+        >
+          <img
+            src="/pineal-mark.png"
+            alt=""
+            className="h-[118px] w-[118px] object-contain"
+          />
+        </div>
         <QRCodeSVG
           value={value}
-          size={130}
+          size={126}
           level="M"
           fgColor="#ffffff"
           bgColor="#000000"
         />
       </div>
 
-      <p className="mt-3 text-xs text-slate-400">
-        <span suppressHydrationWarning>
-          Código de verificación ·{" "}
-          {mounted ? (
-            <>
-              válido hasta{" "}
-              <span className="text-slate-200">{label}</span>
-            </>
-          ) : (
-            "generando…"
-          )}
-        </span>
+      <p className="mt-3 text-xs text-slate-300">
+        Código dinámico de validación institucional
+      </p>
+
+      <p className="mt-1 text-[11px] text-slate-500">
+        Actualización automática activa
+        {mounted && (
+          <>
+            {" · "}
+            <span suppressHydrationWarning>
+              {label}
+            </span>
+          </>
+        )}
       </p>
       <p className="mt-1 text-[11px] text-slate-600">
-         Este código cambia constantemente para evitar duplicaciones o uso indebido.
+         Código temporal asociado a la validación institucional activa.
       </p>
     </div>
   );

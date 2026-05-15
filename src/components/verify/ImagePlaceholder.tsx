@@ -1,33 +1,41 @@
 export function ImagePlaceholder() {
   return (
-    <div className="mb-5 rounded-xl border border-slate-800 bg-black/40 p-6 text-center">
-      
-      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-slate-700 bg-slate-900/60">
+    <div className="mb-5 rounded-2xl border border-slate-800 bg-black/30 px-6 py-10 text-center">
+
+      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-slate-800 bg-black">
         <svg
-          className="h-5 w-5 text-slate-400"
+          className="h-5 w-5 text-slate-500"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
-          viewBox="-0 -3 22 22"
+          strokeWidth="1.8"
+          viewBox="0 0 24 24"
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M4 4h14v10H4z M7 7h8 M7 10h5"
+            d="M4 5h16v14H4z"
+          />
+
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M8 10h8"
+          />
+
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M8 14h5"
           />
         </svg>
       </div>
 
-      <p className="text-sm font-medium text-slate-200">
-        Imagen no disponible
+      <p className="text-sm font-medium tracking-wide text-slate-300">
+        Representación visual restringida
       </p>
 
-      <p className="mt-1 text-xs text-slate-500">
-        Este producto estuvo asociado a un registro emitido dentro de Pineal Shield.
-      </p>
-
-      <p className="mt-2 text-[11px] text-slate-600">
-        Emitido por una entidad registrada dentro de Pineal Shield.
+      <p className="mt-2 max-w-sm mx-auto text-xs leading-relaxed text-slate-500">
+        Este registro mantiene validación institucional activa sin exposición pública de representación visual asociada.
       </p>
 
     </div>

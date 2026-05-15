@@ -25,16 +25,32 @@ export default function VerifiedView({ identifier, result }: Props) {
 
   const chainValid = result.chain_valid ?? true;
 
+  function formatInstitutionalDate(date: string) {
+    return new Intl.DateTimeFormat("es-MX", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZoneName: "short",
+    }).format(new Date(date));
+  }
+
   return (
     <VerifyLayout
       status="verified"
-      title="Registro verificado"
-      subtitle={result.artifact_id ?? result.artifact_piece_id ?? identifier}
+      title="Registro institucional verificado"
+      subtitle={
+        result.kind === "pieza"
+          ? result.artifact_piece_id ?? identifier
+          : result.artifact_id ?? identifier
+      }
       chainValid={chainValid}
     >
 
       {/* 🔴 BRAND BLOCK */}
-      <div className="mb-6 text-center border-b border-slate-800 pb-4">
+      <div className="mb-5 border-b border-slate-800 pb-5 text-center">
         <p className="text-[10px] uppercase tracking-[0.25em] text-slate-500">
           EMITIDO POR
         </p>
@@ -49,7 +65,7 @@ export default function VerifiedView({ identifier, result }: Props) {
         <div className="mb-5 overflow-hidden rounded-xl border border-slate-800 bg-black min-h-[280px] flex items-center justify-center">
           <img
             src={result.image_url}
-            alt={result.nombre ?? "Producto certificado"}
+            alt={result.nombre ?? "Registro Verificado"}
             className="max-h-[320px] w-auto object-contain"
           />
         </div>
@@ -63,10 +79,13 @@ export default function VerifiedView({ identifier, result }: Props) {
           
           <div>
             <dt className="text-xs uppercase text-slate-500">
-              Tipo
+              Tipo de registro
             </dt>
+
             <dd className="mt-1 text-slate-200">
-              {result.kind === "producto" ? "Producto" : "Pieza"}
+              {result.kind === "producto"
+                ? "Registro verificable"
+                : "Pieza verificable"}
             </dd>
           </div>
 
@@ -75,7 +94,7 @@ export default function VerifiedView({ identifier, result }: Props) {
               Registrado
             </dt>
             <dd className="mt-1 text-slate-200">
-              {new Date(result.issued_at).toLocaleString()}
+              {formatInstitutionalDate(result.issued_at)}
             </dd>
           </div>
 
@@ -102,23 +121,19 @@ export default function VerifiedView({ identifier, result }: Props) {
             </div>
 
             <span
-              className={`text-xs font-semibold ${
-                chainValid ? "text-emerald-400" : "text-yellow-400"
+              className={`text-xs font-medium tracking-wide ${
+                chainValid ? "text-emerald-300" : "text-yellow-300"
               }`}
             >
-              {chainValid ? "VERIFICADO" : "COMPROMISED"}
+              {chainValid ? "VALIDADO" : "REQUIERE VALIDACIÓN"}
             </span>
           </div>
 
-          <p className="mt-2 text-xs text-slate-400">
+          <p className="mt-2 text-xs leading-relaxed text-slate-400">
             {chainValid
-              ? "Este registro incorpora controles de integridad y trazabilidad verificable."
-              : "Se detectó una inconsistencia en la cadena de eventos. Se recomienda validación adicional."}
+              ? "Este registro mantiene consistencia documental e integridad verificable dentro de Pineal Shield."
+              : "Se detectó una inconsistencia operativa en el historial verificable del registro."}
           </p>
-
-          <div className="mt-3 text-[11px] text-slate-500 border-t border-slate-800 pt-2">
-            Verification model: event-based cryptographic chain
-          </div>
         </div>
       </div>
 
