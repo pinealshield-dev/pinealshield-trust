@@ -49,6 +49,16 @@ export default function PinealProtocolCard({
 
   const isRevoked = mode === "revoked" || pvp.event_type === "revoked";
 
+    const localVerification = pvp.local_verification;
+
+  const evidenceLabel = localVerification?.checked
+    ? localVerification.valid
+      ? "FIRMA VERIFICADA"
+      : "FIRMA NO VERIFICADA"
+    : pvp.status === "active"
+    ? "EVIDENCIA VIGENTE"
+    : pvp.status?.toUpperCase?.() ?? "EVIDENCIA";
+
   return (
     <div
       className={`mt-6 rounded-xl border p-5 ${
@@ -95,9 +105,7 @@ export default function PinealProtocolCard({
             isRevoked ? "text-red-300" : "text-cyan-300"
           }`}
         >
-          {pvp.status === "active"
-            ? "EVIDENCIA VIGENTE"
-            : pvp.status?.toUpperCase?.() ?? "EVIDENCIA"}
+          {evidenceLabel}
         </span>
       </div>
 
@@ -147,6 +155,25 @@ export default function PinealProtocolCard({
             {shortHash(pvp.payload_hash)}
           </dd>
         </div>
+
+               {localVerification?.checked && (
+          <div>
+            <dt className="text-[11px] uppercase tracking-wide text-slate-500">
+              Verificación local
+            </dt>
+            <dd
+              className={`mt-1 text-sm font-medium ${
+                localVerification.valid
+                  ? "text-emerald-300"
+                  : "text-yellow-300"
+              }`}
+            >
+              {localVerification.valid
+                ? "Firma válida"
+                : "No concluyente"}
+            </dd>
+          </div>
+        )} 
 
         <div>
           <dt className="text-[11px] uppercase tracking-wide text-slate-500">

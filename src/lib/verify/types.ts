@@ -18,6 +18,12 @@ export type VerifyPvpSnapshot =
       record_hash: string;
       chain_created_at: string;
       signed_at: string;
+        local_verification?: {
+        checked: boolean;
+        valid: boolean;
+        reason?: string;
+        payload_hash?: string;
+      };
     };
 
 export type VerifyIntegrity = {
