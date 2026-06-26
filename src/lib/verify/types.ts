@@ -1,6 +1,28 @@
 // 🔒 Capa transversal de integridad (infraestructura)
+export type VerifyPvpSnapshot =
+  | {
+      signed: false;
+      event_type?: "issued" | "revoked" | "replaced" | string;
+      record_hash?: string;
+      chain_created_at?: string;
+    }
+  | {
+      signed: true;
+      version: string;
+      issuer_id: string;
+      key_id: string;
+      algorithm: string;
+      payload_hash: string;
+      status: "active" | "revoked" | "expired" | "superseded" | string;
+      event_type: "issued" | "revoked" | "replaced" | string;
+      record_hash: string;
+      chain_created_at: string;
+      signed_at: string;
+    };
+
 export type VerifyIntegrity = {
   chain_valid?: boolean;
+  pvp?: VerifyPvpSnapshot;
 };
 
 // =====================================================
@@ -148,6 +170,7 @@ export type VerifyDocumentRevokedResult =
 
 export type VerifyUnverifiedResult = {
   status: "unverified";
+  pvp?: VerifyPvpSnapshot;
 };
 
 // =====================================================

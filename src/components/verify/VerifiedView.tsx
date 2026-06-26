@@ -2,6 +2,8 @@ import VerifyLayout from "@/components/verify/VerifyLayout";
 import { CertificateSignature } from "@/components/verify/CertificateSignature";
 import { DynamicQR } from "@/components/verify/DynamicQR";
 import { ImagePlaceholder } from "@/components/verify/ImagePlaceholder";
+import PinealProtocolCard from "@/components/verify/PinealProtocolCard";
+import type { VerifyPvpSnapshot } from "@/lib/verify/types";
 
 interface Props {
   identifier: string;
@@ -18,6 +20,7 @@ interface Props {
     brand_name?: string | null;
     qr_exp: string;
     chain_valid?: boolean;
+    pvp?: VerifyPvpSnapshot;
   };
 }
 
@@ -136,6 +139,11 @@ export default function VerifiedView({ identifier, result }: Props) {
           </p>
         </div>
       </div>
+
+      <PinealProtocolCard
+        pvp={result.pvp}
+        mode="verified"
+      />
 
       {/* 🔴 FIRMA (YA NO PROTAGONISTA) */}
       <div className="opacity-80">

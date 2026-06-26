@@ -1,5 +1,7 @@
 import VerifyLayout from "@/components/verify/VerifyLayout";
 import { ImagePlaceholder } from "@/components/verify/ImagePlaceholder";
+import PinealProtocolCard from "@/components/verify/PinealProtocolCard";
+import type { VerifyPvpSnapshot } from "@/lib/verify/types";
 
 interface Props {
   identifier: string;
@@ -10,6 +12,7 @@ interface Props {
     artifact_piece_id?: string;
     issued_at: string;
     image_url: string | null;
+    pvp?: VerifyPvpSnapshot;
   };
 }
 
@@ -75,27 +78,32 @@ export default function RevokedView({ result,
       </dl>
       
 
-      <div className="mt-6 rounded-xl border border-slate-800 bg-black/20 p-4">
-  <div className="flex items-center justify-between">
-    <div>
-      <p className="text-xs uppercase tracking-wide text-slate-500">
-        Estado operacional
-      </p>
+            <div className="mt-6 rounded-xl border border-slate-800 bg-black/20 p-4">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-xs uppercase tracking-wide text-slate-500">
+              Estado operacional
+            </p>
 
-      <p className="mt-1 text-sm text-slate-300">
-        Referencia descontinuada
-      </p>
-    </div>
+            <p className="mt-1 text-sm text-slate-300">
+              Referencia descontinuada
+            </p>
+          </div>
 
-    <span className="text-xs font-medium tracking-wide text-red-300">
-      REVOKED
-    </span>
-  </div>
+          <span className="shrink-0 text-xs font-medium tracking-wide text-red-300">
+            REVOKED
+          </span>
+        </div>
 
-  <p className="mt-3 text-xs leading-relaxed text-slate-500">
-    Este identificador permanece registrado únicamente como referencia histórica verificable.
-  </p>
-</div>
+        <p className="mt-3 text-xs leading-relaxed text-slate-500">
+          Este identificador permanece registrado únicamente como referencia histórica verificable.
+        </p>
+      </div>
+
+      <PinealProtocolCard
+        pvp={result.pvp}
+        mode="revoked"
+      />
 
     </VerifyLayout>
   );
