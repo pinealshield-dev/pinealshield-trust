@@ -1,6 +1,8 @@
 import VerifyLayout from "@/components/verify/VerifyLayout";
 import { CertificateSignature } from "@/components/verify/CertificateSignature";
 import { DynamicQR } from "@/components/verify/DynamicQR";
+import PinealProtocolCard from "@/components/verify/PinealProtocolCard";
+import type { VerifyPvpSnapshot } from "@/lib/verify/types";
 
 interface Props {
   identifier: string;
@@ -19,6 +21,7 @@ interface Props {
     brand_name?: string | null;
 
     qr_exp?: string;
+    pvp?: VerifyPvpSnapshot;
   };
 }
 
@@ -71,6 +74,17 @@ export default function DocumentView({ identifier, result }: Props) {
         identifier={result.document_id ?? identifier}
         createdAt={result.issued_at}
         verificationOrigin={result.verification_origin}
+      />
+
+            <PinealProtocolCard
+        pvp={result.pvp}
+        mode={
+          result.status === "revoked"
+            ? "revoked"
+            : result.status === "replaced"
+            ? "replaced"
+            : "document"
+        }
       />
 
       {/* 🔽 QR (SECUNDARIO) */}
