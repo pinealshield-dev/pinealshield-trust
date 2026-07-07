@@ -5,24 +5,40 @@ export type UIStatus =
   | "compromised"
   | "not_found";
 
-export function normalizeStatus(result: any): UIStatus {
-  // 🔴 Sin resultado o unverified → NO EXISTE
+type NormalizableVerifyResult = {
+  status?: unknown;
+  entity?: unknown;
+  chain_valid?: unknown;
+};
+
+const VALID_ENTITIES = new Set(["artifact", "artifact_piece", "document"]);
+
+export function normalizeStatus(
+  result: NormalizableVerifyResult | null | undefined,
+): UIStatus {
   if (!result || result.status === "unverified") {
     return "not_found";
   }
 
-  // 🔴 Sin entidad válida → NO EXISTE
   if (
-    !result.entity ||
-    !["artifact", "artifact_piece", "document"].includes(result.entity)
+    typeof result.entity !== "string" ||
+    !VALID_ENTITIES.has(result.entity)
   ) {
     return "not_found";
   }
 
-  // 🔴 Verificado pero cadena inválida → comprometido
   if (result.status === "verified" && result.chain_valid === false) {
     return "compromised";
   }
 
-  return result.status;
+  if (
+    result.status === "verified" ||
+    result.status === "revoked" ||
+    result.status === "replaced" ||
+    result.status === "compromised"
+  ) {
+    return result.status;
+  }
+
+  return "not_found";
 }

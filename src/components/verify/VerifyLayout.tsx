@@ -1,5 +1,6 @@
 import { VERIFICATION_LAYER_VERSION } from "@/lib/version";
 import { ShieldCheck, ShieldX, AlertTriangle } from "lucide-react";
+import Link from "next/link";
 
 type Status =
   | "verified"
@@ -121,12 +122,12 @@ export default function VerifyLayout({
 
         {/* FOOTER */}
         <div className="mt-6 text-center">
-          <a
+          <Link
             href="/verify"
             className="inline-flex items-center justify-center rounded-xl border border-slate-800 px-4 py-2 text-sm text-slate-300 transition hover:border-slate-700 hover:bg-slate-900/50"
           >
             Verificar otro código
-          </a>
+          </Link>
 
           <footer className="mt-8 text-[10px] uppercase tracking-[0.22em] text-slate-600">
             Verification Layer · {VERIFICATION_LAYER_VERSION}
