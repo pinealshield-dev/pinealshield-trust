@@ -3,6 +3,9 @@
 import { useState } from "react";
 import PinealOpticalUpload from "@/components/verify/PinealOpticalUpload";
 
+const OPTICAL_BETA_ENABLED =
+  process.env.NEXT_PUBLIC_PINEAL_OPTICAL_BETA_ENABLED === "true";
+
 const MIN_LEN = 8;
 const MAX_LEN = 64;
 
@@ -96,7 +99,9 @@ export default function VerifyClient() {
         </p>
       </div>
 
-      <PinealOpticalUpload expectedIdentifier={code} />
+      {OPTICAL_BETA_ENABLED && (
+        <PinealOpticalUpload expectedIdentifier={code} />
+      )}
       
       <div className="mt-12 border-t border-slate-900 pt-7">
         <p className="text-[10px] uppercase tracking-[0.24em] text-slate-600">
