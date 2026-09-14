@@ -9,11 +9,11 @@ type Props = {
 };
 
 const STATUS_LABELS: Record<VerifyV2RecordResult["status"], string> = {
-  verified: "ACTIVE",
-  revoked: "REVOKED",
-  replaced: "REPLACED",
-  expired: "EXPIRED",
-  suspended: "SUSPENDED",
+  verified: "ACTIVO",
+  revoked: "REVOCADO",
+  replaced: "REEMPLAZADO",
+  expired: "EXPIRADO",
+  suspended: "SUSPENDIDO",
 };
 
 function humanizeKey(key: string) {
@@ -50,6 +50,8 @@ export default function RecordView({ result }: Props) {
   const isActive = result.status === "verified";
   const issuerVerified = result.issuer_status !== "unverified";
   const publicEntries = Object.entries(result.public_data ?? {});
+  const localizedTitle =
+    result.template_labels?.es ?? result.template_name ?? "Registro verificable";
 
   return (
     <main className="min-h-screen bg-black px-4 py-10 text-white sm:py-16">
@@ -58,10 +60,10 @@ export default function RecordView({ result }: Props) {
           <div className="flex flex-col gap-5 border-b border-zinc-900 pb-8 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-cyan-400">
-                Pineal Shield · Verifiable Record
+                Pineal Shield · Registro verificable
               </p>
               <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
-                {result.template_name ?? "Registro verificable"}
+                {localizedTitle}
               </h1>
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-500">
                 Registro emitido por una organización mediante la infraestructura de confianza verificable de Pineal Shield.
