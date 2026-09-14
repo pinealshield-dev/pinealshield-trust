@@ -128,6 +128,7 @@ async function verifyV2Record(
     .from("public_record_projections")
     .select(`
       record_id,
+      tenant_id,
       public_token,
       public_id,
       status,
@@ -184,6 +185,7 @@ async function verifyV2Record(
     source: "public_verify_v2",
     identifier: data.public_id,
     verifier_type: "public_web",
+    tenant_id: data.tenant_id,
     verifiable_record_id: data.record_id,
     public_token: data.public_token,
     metadata: {
