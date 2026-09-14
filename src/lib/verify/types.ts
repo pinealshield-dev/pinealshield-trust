@@ -18,7 +18,7 @@ export type VerifyPvpSnapshot =
       record_hash: string;
       chain_created_at: string;
       signed_at: string;
-        local_verification?: {
+      local_verification?: {
         checked: boolean;
         valid: boolean;
         reason?: string;
@@ -171,6 +171,45 @@ export type VerifyDocumentRevokedResult =
   };
 
 // =====================================================
+// 🌐 V2 UNIVERSAL VERIFIABLE RECORD
+// =====================================================
+
+export type VerifyV2RecordResult = {
+  status: "verified" | "revoked" | "replaced" | "expired" | "suspended";
+  entity: "record";
+  kind: "verifiable_record";
+
+  public_id: string;
+  public_token: string;
+  record_type: string;
+  entity_type: string;
+
+  template_code: string | null;
+  template_name: string | null;
+  template_labels: Record<string, string>;
+
+  issuer_name: string;
+  issuer_slug: string | null;
+  issuer_status: "unverified" | "verified" | "trusted" | "enterprise" | string;
+
+  public_data: Record<string, unknown>;
+
+  integrity_hash: string;
+  hash_algorithm: string;
+  hash_version: string;
+
+  issued_at: string;
+  effective_from: string | null;
+  expires_at: string | null;
+  revoked_at: string | null;
+
+  replaces_public_id: string | null;
+  replaced_by_public_id: string | null;
+
+  verification_origin: "pineal_record_v2";
+};
+
+// =====================================================
 // ❌ UNVERIFIED (NO INTEGRITY)
 // =====================================================
 
@@ -188,6 +227,7 @@ export type VerifyPublicResult =
   | VerifyArtifactRevokedResult
   | VerifyDocumentVerifiedResult
   | VerifyDocumentRevokedResult
+  | VerifyV2RecordResult
   | VerifyUnverifiedResult;
 
 // =====================================================
