@@ -1,4 +1,7 @@
+import Link from "next/link";
+
 import type { VerifyV2RecordResult } from "@/lib/verify/types";
+import { VERIFICATION_LAYER_VERSION } from "@/lib/version";
 
 type Props = {
   result: VerifyV2RecordResult;
@@ -186,6 +189,19 @@ export default function RecordView({ result }: Props) {
               Pineal Shield confirma la procedencia, estado y fingerprint registrados para este Record. El estado de verificación del emisor se muestra por separado y no implica que Pineal Shield haya auditado cada afirmación contenida en el registro.
             </p>
           </section>
+
+          <div className="border-t border-zinc-900 pt-7 text-center">
+            <Link
+              href="/verify"
+              className="inline-flex items-center justify-center rounded-xl border border-zinc-800 px-4 py-2 text-sm text-zinc-300 transition hover:border-zinc-700 hover:bg-zinc-900/50"
+            >
+              Verificar otro código
+            </Link>
+
+            <footer className="mt-8 text-[10px] uppercase tracking-[0.22em] text-zinc-700">
+              Verification Layer · {VERIFICATION_LAYER_VERSION}
+            </footer>
+          </div>
         </div>
       </div>
     </main>
